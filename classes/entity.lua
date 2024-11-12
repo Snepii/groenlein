@@ -1,16 +1,17 @@
 local object = require "libs.ext.classic"
---local util = require "libs.util"
 local entity = object:extend()
 
 function entity:new(x, y, img_path)
     self.img = (require "classes.image")(img_path)
+    
+    self.width = self.img.width
+    self.height = self.img.height
 
     self.pos = {
         x = x,
         y = y,
         last = { x = x, y = y }
     }
-
 end
 
 function entity:update(dt)
@@ -23,6 +24,52 @@ function entity:draw()
 end
 
 
-    
+
+---basic rectangular collision check
+---@param e any
+---@return boolean
+function entity:checkCollision(e)
+    return self.pos.x + self.width > e.pos.x
+    and self.pos.x < e.pos.x + e.width
+    and self.pos.y + self.height > e.pos.y
+    and self.pos.y < e.pos.y + e.height
+end
+
+---how to handle collision
+---@param e any
+function entity:resolveCollision(e)
+    if self:checkCollision(e) then
+        if self:wasVerticallyAligned(e) then
+            if self.pos.x + self.width/2 < e.pos.x + e.width/2  then
+                -- pusback = the right side of the player - the left side of the wall
+                local pushback = self.pos.x + self.width - e.pos.x
+                self.pos.x = self.pos.x - pushback
+            else
+                -- pusback = the right side of the wall - the left side of the player
+                local pushback = e.pos.x + e.width - self.pos.x
+                self.pos.x = self.pos.x + pushback
+            end
+        elseif self:wasHorizontallyAligned(e) then
+            if self.pos.y + self.height/2 < e.pos.y + e.height/2 then
+                -- pusback = the bottom side of the player - the top side of the wall
+                local pushback = self.pos.y + self.height - e.pos.y
+                self.pos.y = self.pos.y - pushback
+            else
+                -- pusback = the bottom side of the wall - the top side of the player
+                local pushback = e.pos.y + e.height - self.pos.y
+                self.pos.y = self.pos.y + pushback
+            end
+        end
+    end
+end
+
+
+function entity:wasVerticallyAligned(e)
+    return self.pos.last.y < e.pos.last.y + e.height and self.pos.last.y + self.height > e.pos.last.y
+end
+
+function entity:wasHorizontallyAligned(e)
+    return self.pos.last.x < e.pos.last.x + e.width and self.pos.last.x + self.width > e.pos.last.x
+end
 
 return entity

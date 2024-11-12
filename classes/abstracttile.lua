@@ -1,4 +1,4 @@
---todo@Snepii #4 should this be entity?
+--todo@Snepii #4 should this be entity? for collision
 local AbstractTile = (require "libs.ext.classic"):extend()
 --local u = require "libs.util"
 
@@ -94,10 +94,11 @@ function AbstractTile:update(dt)
         local pX, pY = ThePlayer.pos.x, ThePlayer.pos.y
         local pW, pH = ThePlayer.img.width, ThePlayer.img.height
 
-        if self:boundingBox(pX, pY) and self:boundingBox(pX + pW, pY + pH) then
+        ThePlayer:resolveCollision(self)
+        --[[if self:boundingBox(pX, pY) and self:boundingBox(pX + pW, pY + pH) then
             ThePlayer.pos.x = ThePlayer.pos.last.x
             ThePlayer.pos.y = ThePlayer.pos.last.y
-        end
+        end]]--
     end
 end
 

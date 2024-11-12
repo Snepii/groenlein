@@ -35,7 +35,11 @@ end
 ---just for the time being to see some world drawn
 function World:populate()
     local groundTile = require "classes.groundtile"
+    local t = groundTile(0, 3, 3,Types.Ground.Rock)
+    t.checkCollisionPlayer = true
 
+    table.insert(self.Ground, t)
+    --[[
     local count = 0
     for y=0,10 do
         for x=0,1 do
@@ -45,7 +49,7 @@ function World:populate()
             table.insert(self.Ground, tile)
             count = count + 1
         end
-    end
+    end]]--
 end
 
 return World

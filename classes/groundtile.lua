@@ -22,6 +22,11 @@ function GroundTile:new(id, x, y, type, variant)
 
     self.scale = TheWorld.tessellation/self.img.width
     self.drawable = true
+
+    --[[Debugger.hl(self.y*TheWorld.tessellation)
+    Debugger.hl(self.y*TheWorld.tessellation + TheWorld.tessellation)
+    Debugger.vl(self.x*TheWorld.tessellation)
+    Debugger.vl(self.x *TheWorld.tessellation+TheWorld.tessellation)]]--
 end
 
 return GroundTile
