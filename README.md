@@ -27,3 +27,10 @@ seems fishy idk
 
 ### Player Speed:
 - Ensure player speed fits with tessellation.
+
+
+### from google sheet:
+- put ideas here:
+https://docs.google.com/spreadsheets/d/1rjlbIJDYSPJyn-l1wUjcAy0hjb-23CEILwuhmw7x5kA/edit?usp=sharing
+
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3Db_BMXtp-qgt4xEBic50RhJC_wnylI2Tw6ujuoRfdwM2OC8ZxE9zcRplwMtpeQMaNZbVFNbjtuTe/pubhtml?gid=1758173647&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
