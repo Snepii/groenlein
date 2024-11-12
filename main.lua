@@ -105,6 +105,8 @@ end
 function love.update(dt)
   Debugger.print("tick", TheWorld.Tick)
   Debugger.print("prec tick", TheWorld.PreciseTick, 5)
+  Debugger.print("testtest", dt, 3)
+  Debugger.print("moretest", dt*2, 10)
   if OnTitleScreen then
     
     TitleMenu:update(dt)

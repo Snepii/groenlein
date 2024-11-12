@@ -5,12 +5,15 @@ Debugger.draw = function()
     PushColor()
     love.graphics.setColor(Debugger.color)
     local counter = 0
+    local lastsize = 0
 
-    for k,text in pairs(Debugger.text) do
-        counter = counter + 1
-        love.graphics.print(text.key .. ":" ..text.text, 20, (20 + text.size + love.graphics.getFont():getHeight()) * counter, 0, text.size, text.size)
-    end
-
+    Util.push("font", love.graphics.getFont())
+    love.graphics.setNewFont(12)
+        for k,text in pairs(Debugger.text) do
+            counter = counter + 1
+            love.graphics.print("["..counter.."]:" .. text.key .. ":" ..text.text, 20, 20  * counter)--, 0, text.size, text.size)
+        end
+    love.graphics.setFont(Util.pop("font")[1])
 
     for _,e in pairs(Debugger.circle) do
         love.graphics.circle("line", e.x, e.y, 3)
@@ -27,21 +30,20 @@ Debugger.draw = function()
 
 end
 
-Debugger.print = function(id, txt, s)
+Debugger.print = function(id, txt)
     local idx = 0
-    print("checking for id ".. id)
+    --print("checking for id ".. id)
     for k,v in pairs(Debugger.text) do
         idx = idx + 1
         if v.key == id then
-            print("found at " .. idx)
+            --print("found at " .. idx)
             table.remove(Debugger.text, idx)
             break
         end
     end
-    print("inserting ")
+    --print("inserting ")
 
-
-    table.insert(Debugger.text, {key=id, text=txt, size=s})
+    table.insert(Debugger.text, {key=id, text=txt})
 end
 
 Debugger.circ = function(x,y)
