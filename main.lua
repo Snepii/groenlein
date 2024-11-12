@@ -4,21 +4,13 @@ if arg[2] == "debug" then
     require("lldebugger").start()
 end
 
+-- global loads & fields
 require "updateview"
-
-UpdateReadme()
-
--- static loads
 require "libs.util"
 require "classes.staticvalues"
 require "classes.debugger"
 
-print("loading world")
 TheWorld = (require "classes.world")()
-print("world there? " .. tostring(TheWorld ~= nil))
-print("tessellation? " .. tostring(TheWorld.tessellation ~= nil))
-
-print("loading player")
 ThePlayer = (require "classes.player")()
 
 
@@ -64,7 +56,6 @@ end
 -- CALLBACKS-----------------------------------------------------------
 function love.load()
   --testMenu()
-  Debugger.cls()
   
   CallbackItems = { Update = {}, Draw = {}, Key = {}, Mouse = {}}
 
@@ -86,15 +77,16 @@ function love.load()
     end
   end
 
-
-
   AddCallback(TheWorld, true, true, false, false)
-
   AddCallback(ThePlayer, true, true, true, false)
 
+
+  --todo@Snepii #7 change
   TheWorld:populate()
 
   OnTitleScreen = true
+
+
   -- do NOT add TitleMenu to Callback Table
   TitleMenu = (require "classes.titlemenu")()
   
@@ -104,14 +96,10 @@ end
 
 function love.update(dt)
   Debugger.print("tick", TheWorld.Tick)
-  Debugger.print("prec tick", TheWorld.PreciseTick, 5)
-  Debugger.print("testtest", dt, 3)
-  Debugger.print("moretest", dt*2, 10)
-  if OnTitleScreen then
-    
+
+  if OnTitleScreen then    
     TitleMenu:update(dt)
     Debugger.draw()
-
     return
   end
   --menu:update()

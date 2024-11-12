@@ -1,6 +1,6 @@
 Debugger = {}
---local u = require "libs.util"
 
+---draws everything stored in the debugger to the screen
 Debugger.draw = function()
     PushColor()
     love.graphics.setColor(Debugger.color)
@@ -13,6 +13,7 @@ Debugger.draw = function()
             counter = counter + 1
             love.graphics.print("["..counter.."]:" .. text.key .. ":" ..text.text, 20, 20  * counter)--, 0, text.size, text.size)
         end
+    --todo@Snepii #6 ideally pop("...") should not have to be followed by [1]    
     love.graphics.setFont(Util.pop("font")[1])
 
     for _,e in pairs(Debugger.circle) do
@@ -30,6 +31,9 @@ Debugger.draw = function()
 
 end
 
+---stores a text in the debugger. will replace another text with same id
+---@param id string
+---@param txt string
 Debugger.print = function(id, txt)
     local idx = 0
     --print("checking for id ".. id)
@@ -65,3 +69,6 @@ Debugger.cls = function()
     Debugger.hline = {}
     Debugger.vline = {}
 end
+
+--when loaded, clear debugger => sets empty default variables
+Debugger.cls()

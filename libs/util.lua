@@ -40,7 +40,7 @@ end
 function Util.push(property, item, ...)
 
    if Util._stack[property] == nil then
-      print("not on stack, creating")
+      --print("not on stack, creating")
       Util._stack[property] = {}
       Util._nstack[property] = 0
    end

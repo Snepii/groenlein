@@ -96,8 +96,6 @@ end
 
 
 function UpdateReadme()
-
-
     local currentSchedule = readUpdateSchedule()
     currentSchedule = currentSchedule - 1  -- Decrement the number
     print("update schedule: " .. currentSchedule .. " starts left")
@@ -112,5 +110,6 @@ function UpdateReadme()
         end
     end
     writeUpdateSchedule(currentSchedule)
-
 end
+
+UpdateReadme()
