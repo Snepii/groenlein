@@ -76,7 +76,7 @@ local function readUpdateSchedule()
         local number = tonumber(file:read("*all"))
         file:close()
 
-        if number <= 0 then return 20 end
+        if number <= 0 then return 80 end
 
         return number or 0  -- If the file is empty or contains invalid data, return 0
     end
