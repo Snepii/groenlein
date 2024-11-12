@@ -1,0 +1,8 @@
+git annotations
+
+  "TODO",
+  "todo",
+  "BUG",
+  "FIXME",
+  "ISSUE",
+  "HACK"
