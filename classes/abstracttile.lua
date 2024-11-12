@@ -5,7 +5,7 @@ local AbstractTile = (require "libs.ext.classic"):extend()
 
 ---creates an abstract tile object (no default coordinates, type, contents)
 function AbstractTile:new()
-    print("AbstractTile()")
+    --print("AbstractTile()")
     self.id = 0
 
     --print("abstracttile")

@@ -103,7 +103,7 @@ end
 
 
 function love.update(dt)
-  Debugger.print("tick", TheWorld.Tick, 2)
+  Debugger.print("tick", TheWorld.Tick)
   Debugger.print("prec tick", TheWorld.PreciseTick, 5)
   if OnTitleScreen then
     
