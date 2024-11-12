@@ -8,9 +8,6 @@ require "updateview"
 
 UpdateReadme()
 
-while true do
-  
-end
 -- static loads
 require "libs.util"
 require "classes.staticvalues"
@@ -106,7 +103,8 @@ end
 
 
 function love.update(dt)
-  Debugger.print("tick", TheWorld.Tick, 5)
+  Debugger.print("tick", TheWorld.Tick, 2)
+  Debugger.print("prec tick", TheWorld.PreciseTick, 5)
   if OnTitleScreen then
     
     TitleMenu:update(dt)

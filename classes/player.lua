@@ -9,23 +9,24 @@ function Player:new()
     self.move_down = false
     self.move_left = false
     self.move_right = false
-    --self.speed = 200
+
     --speed = pixels/second
     self.speed = TheWorld.tessellation * 2.5
 
 end
 
 
-local counter = 0
+local counter = 1
 local triggered = false
 function Player:update(dt)
     self.super.update(self, dt)
 
-    counter = counter+dt
+    
     
 
-    if math.floor(counter) % 2 == 0 and not triggered then
+    if counter == TheWorld.Tick and not triggered then
         Debugger.circ(self.pos.x, self.pos.y)
+        counter = counter+1
         triggered = true
     else 
         triggered = false

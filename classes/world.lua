@@ -20,7 +20,10 @@ function World:draw()
 end
 
 function World:update(dt)
-    self.PreciseTick = self.PreciseTick + dt
+    --todo@Snepii #1 check out the tick library
+    self.PreciseTick = (self.PreciseTick + dt)%60
+
+    --todo@Snepii #3 defining tick like that is just seconds
     self.Tick = math.floor(self.PreciseTick)
 
     for _,g in pairs(self.Ground) do
@@ -28,6 +31,8 @@ function World:update(dt)
     end
 end
 
+--todo@Snepii #2 figure out how to generate the world
+---just for the time being to see some world drawn
 function World:populate()
     local groundTile = require "classes.groundtile"
 

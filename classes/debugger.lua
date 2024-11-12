@@ -5,9 +5,10 @@ Debugger.draw = function()
     PushColor()
     love.graphics.setColor(Debugger.color)
     local counter = 0
+
     for k,text in pairs(Debugger.text) do
         counter = counter + 1
-        love.graphics.print(text.key .. ":" ..text.text, 20, 20 + text.size * counter, 0, text.size, text.size)
+        love.graphics.print(text.key .. ":" ..text.text, 20, (20 + text.size + love.graphics.getFont():getHeight()) * counter, 0, text.size, text.size)
     end
 
 
