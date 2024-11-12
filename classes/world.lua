@@ -38,8 +38,11 @@ function World:populate()
 
     local count = 0
     for y=0,10 do
-        for x=0,10 do
-            table.insert(self.Ground, groundTile(count, x, y, Types.Ground.Grass))
+        for x=0,1 do
+            local tile = groundTile(count, x+3, y+3, Util.ifelse(y==0, Types.Ground.Grass,Types.Ground.Rock))
+            tile.walkable = Util.ifelse(y==0, true, false)
+            tile.checkCollisionPlayer = Util.ifelse(y==0, true, false)
+            table.insert(self.Ground, tile)
             count = count + 1
         end
     end
