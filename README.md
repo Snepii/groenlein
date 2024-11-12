@@ -33,4 +33,12 @@ seems fishy idk
 - put ideas here:
 https://docs.google.com/spreadsheets/d/1rjlbIJDYSPJyn-l1wUjcAy0hjb-23CEILwuhmw7x5kA/edit?usp=sharing
 
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3Db_BMXtp-qgt4xEBic50RhJC_wnylI2Tw6ujuoRfdwM2OC8ZxE9zcRplwMtpeQMaNZbVFNbjtuTe/pubhtml?gid=1758173647&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+
+
+
+
+
+
+
+
+- 12.11.2024 03:45:32, test test hehe

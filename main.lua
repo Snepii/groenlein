@@ -4,7 +4,13 @@ if arg[2] == "debug" then
     require("lldebugger").start()
 end
 
+require "updateview"
 
+UpdateReadme()
+
+while true do
+  
+end
 -- static loads
 require "libs.util"
 require "classes.staticvalues"
