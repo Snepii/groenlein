@@ -33,3 +33,7 @@ seems fishy idk
 - put ideas [into this google form](https://forms.gle/auWwnnfYoMxZBJNx5)
 
 
+
+- 
+- 
+- 12.11.2024 16:19:48, "fishbone...as a resource, we live in a fishiety.."
