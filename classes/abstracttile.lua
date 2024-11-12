@@ -8,7 +8,7 @@ function AbstractTile:new()
     self.id = 0
 
     --print("abstracttile")
-    --print(self.tesselation)
+    --print(self.tessellation)
 
     --whether the tile's draw function should be called
     self.drawable = false
@@ -16,24 +16,24 @@ function AbstractTile:new()
     --the game x-coordinate
     self.x = nil
 
-    --the fraction of the x-coordinate (0..tesselation)
+    --the fraction of the x-coordinate (0..tessellation)
     self.dx = nil
 
     --the game y-coordinate
     self.y = nil 
 
-    --the fraction of the y-coordinate (0..tesselation)
+    --the fraction of the y-coordinate (0..tessellation)
     self.dy = nil
 
-    --the scale factor given to the draw function based on image size and tesselation
+    --the scale factor given to the draw function based on image size and tessellation
     self.scale = 1
 
     print("is theworld there? " .. tostring(TheWorld ~= nil))
-    print("is tesselation there? " .. tostring(TheWorld.tesselation ~= nil))
+    print("is tessellation there? " .. tostring(TheWorld.tessellation ~= nil))
 
-    --the mathematical position = coordinate * tesselation
+    --the mathematical position = coordinate * tessellation
     self.pos = function()
-        return {self.x * TheWorld.tesselation, self.y * TheWorld.tesselation}
+        return {self.x * TheWorld.tessellation, self.y * TheWorld.tessellation}
     end
 
     --other properties of the tile (e.g. type, content)

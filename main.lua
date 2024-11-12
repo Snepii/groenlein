@@ -19,7 +19,7 @@ require "classes.debugger"
 print("loading world")
 TheWorld = (require "classes.world")()
 print("world there? " .. tostring(TheWorld ~= nil))
-print("tesselation? " .. tostring(TheWorld.tesselation ~= nil))
+print("tessellation? " .. tostring(TheWorld.tessellation ~= nil))
 
 print("loading player")
 ThePlayer = (require "classes.player")()

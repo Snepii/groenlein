@@ -20,7 +20,7 @@ function GroundTile:new(id, x, y, type, variant)
     self.variant = variant
     self.img = (require "classes.image")(GAMEPATH.GROUND_TEXTURES .. type .. ".png")
 
-    self.scale = TheWorld.tesselation/self.img.width
+    self.scale = TheWorld.tessellation/self.img.width
     self.drawable = true
 end
 

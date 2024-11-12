@@ -8,7 +8,7 @@ function World:new()
     self.PreciseTick = 0
     self.Tick = 0
     --the size of a tile in pixel
-    self.tesselation = 64
+    self.tessellation = 64
 
     
 end
