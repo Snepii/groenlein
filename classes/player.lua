@@ -1,5 +1,5 @@
 local Player = (require "classes.entity"):extend()
-local u = require "libs.util"
+--local u = require "libs.util"
 local world = require "classes.world"
 
 function Player:new()
@@ -33,11 +33,11 @@ function Player:update(dt)
 
 
     if self.move_up ~= self.move_down then
-        self.pos.y = self.pos.y + u.ifelse(self.move_up, -1, 1) * self.speed * dt
+        self.pos.y = self.pos.y + Util.ifelse(self.move_up, -1, 1) * self.speed * dt
     end
 
     if self.move_left ~= self.move_right then
-        self.pos.x = self.pos.x + u.ifelse(self.move_left, -1, 1) * self.speed * dt
+        self.pos.x = self.pos.x + Util.ifelse(self.move_left, -1, 1) * self.speed * dt
     end
 end
 

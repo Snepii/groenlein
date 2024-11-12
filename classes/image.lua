@@ -1,9 +1,9 @@
-local util = require "libs.util"
+--local util = require "libs.util"
 local image = (require "libs.ext.classic"):extend()
 
 function image:new(path)
     self.path = path
-    self.obj = love.graphics.newImage(util.ifelsenil(path, GAMEPATH.TEXTURES .. "test.png"))
+    self.obj = love.graphics.newImage(Util.ifelsenil(path, GAMEPATH.TEXTURES .. "test.png"))
     self.width = self.obj:getWidth()
     self.height = self.obj:getHeight()
     --self.updateImg(self, self.path)

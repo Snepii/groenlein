@@ -1,6 +1,6 @@
 local obj = require "libs.ext.classic"
 local menubutton = obj:extend()
-local u = require "libs.util"
+--local u = require "libs.util"
 local element = require "classes.menuelement"
 --TODO: static id list?
 
@@ -94,8 +94,8 @@ function menubutton:draw()
         --reset stencil
         love.graphics.setStencilTest()
 
-        u.pushColor()
-        u.push("font", love.graphics.getFont())
+        PushColor()
+        Util.push("font", love.graphics.getFont())
 
             love.graphics.setColor(self.textcolor)
             love.graphics.setFont(self.font)
@@ -104,8 +104,8 @@ function menubutton:draw()
             else
                 love.graphics.printf(self.text, self.x, self.y + self.height/2 - self.font:getHeight()/2, self.width, "center")
             end
-        u.popColor()
-        love.graphics.setFont(u.pop("font")[1])
+        PopColor()
+        love.graphics.setFont(Util.pop("font")[1])
 
     --u.popColor()
 end

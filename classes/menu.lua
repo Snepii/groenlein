@@ -1,6 +1,6 @@
 local obj = require "libs.ext.classic"
 local Menu = obj:extend()
-local u = require "libs.util"
+--local u = require "libs.util"
 
 ---comment
 ---@param id any
@@ -69,17 +69,17 @@ function Menu:draw()
         return
     end
 
-    u.pushColor()
+    PushColor()
         love.graphics.setColor(self.backcolor)
         love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
         
-        u.pushColor()
+        PushColor()
             love.graphics.setColor(self.textcolor)
-            u.push("font", love.graphics.getFont())
+            Util.push("font", love.graphics.getFont())
                 love.graphics.setFont(self.font)
                 love.graphics.printf(self.header, self.x,self.y + self.margin, self.width, "center")
-            love.graphics.setFont(u.pop("font")[1])
-        u.popColor()
+            love.graphics.setFont(Util.pop("font")[1])
+        PopColor()
 
 
         if self.layout=="vertical" then
@@ -114,7 +114,7 @@ function Menu:draw()
                 end
                 e:draw()
             end
-    u.popColor()
+    PopColor()
     end
 
 

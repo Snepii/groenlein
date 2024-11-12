@@ -1,6 +1,6 @@
-local Util = {
-   stack = {},
-   nstack = {}
+Util = {
+   _stack = {},
+   _nstack = {}
 }
 
 function Util.file_exists(name)
@@ -10,7 +10,7 @@ function Util.file_exists(name)
    if f~=nil then io.close(f) return true else return false end
 end
 
---- replacement for (a)?b:c
+--- replacement for (a==nil)?b:a
 ---@param if_nil any
 ---@param else_value any
 ---@return any
@@ -18,6 +18,11 @@ function Util.ifelsenil(if_nil, else_value)
    if if_nil == nil then return else_value else return if_nil end
 end
 
+---replacement for (a)?b:c
+---@param if_value any
+---@param then_return any
+---@param else_return any
+---@return any
 function Util.ifelse(if_value, then_return, else_return)
    if if_value then
       return then_return
@@ -34,10 +39,10 @@ end
 ---@return number
 function Util.push(property, item, ...)
 
-   if Util.stack[property] == nil then
+   if Util._stack[property] == nil then
       print("not on stack, creating")
-      Util.stack[property] = {}
-      Util.nstack[property] = 0
+      Util._stack[property] = {}
+      Util._nstack[property] = 0
    end
 
    local args = {...}
@@ -52,12 +57,12 @@ function Util.push(property, item, ...)
       item = i
    end
 
-   table.insert(Util.stack[property], item)
-   Util.nstack[property] = Util.nstack[property] + 1
+   table.insert(Util._stack[property], item)
+   Util._nstack[property] = Util._nstack[property] + 1
 
    --Util.printStack(property)
 
-   return Util.nstack[property]
+   return Util._nstack[property]
 end
 
 
@@ -65,17 +70,17 @@ end
 ---@param property string
 ---@return any
 function Util.pop(property)
-   local count = Util.nstack[property]
+   local count = Util._nstack[property]
    if count == nil or count == 0 then
       print("nilled")
       return nil
    end 
 
-   local e = table.remove(Util.stack[property], count)
-   Util.nstack[property] = count - 1
+   local e = table.remove(Util._stack[property], count)
+   Util._nstack[property] = count - 1
    if count == 1 then
       local idx = 1
-      for k,_ in pairs(Util.stack) do
+      for k,_ in pairs(Util._stack) do
          if k == property then
             break
          else
@@ -85,25 +90,25 @@ function Util.pop(property)
       
 
       --print("removing " .. property .. " from stack bc empty")
-      table.remove(Util.stack, idx)
+      table.remove(Util._stack, idx)
       --print("removing " .. property .. " from nstack bc empty")
-      table.remove(Util.nstack, idx)
+      table.remove(Util._nstack, idx)
    end
 
    return e
 end
 
 function Util.printStack(property)
-   if Util.stack[property] == nil then
+   if Util._stack[property] == nil then
       print("stack[" .. property .. "] doesn't exist")
-   elseif Util.nstack[property] == 0 then
+   elseif Util._nstack[property] == 0 then
       print("stack[" .. property .. "] is empty")
    else
-      print("elements in " .. property .. "(" .. #Util.stack[property] .. "): ")
+      print("elements in " .. property .. "(" .. #Util._stack[property] .. "): ")
       --for i,v in ipairs(Util.stack[property]) do
         -- print(i..": " .. v)
       --end
-      Util.printTable(Util.stack[property])
+      Util.printTable(Util._stack[property])
    end
 end
 
@@ -134,16 +139,14 @@ end
 
 ---shortcut for push("color", love.graphics.getColor())
 ---@return number
-function Util.pushColor()
+function PushColor()
    return Util.push("color", love.graphics.getColor())
 end
 
 ---shortcut for pop("color")
 ---@return any
-function Util.popColor()
+function PopColor()
    love.graphics.setColor(Util.pop("color"))
 end
 
 
-
-return Util

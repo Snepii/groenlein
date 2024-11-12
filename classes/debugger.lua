@@ -1,8 +1,8 @@
 Debugger = {}
-local u = require "libs.util"
+--local u = require "libs.util"
 
 Debugger.draw = function()
-    u.pushColor()
+    PushColor()
     love.graphics.setColor(Debugger.color)
     local counter = 0
     for k,text in pairs(Debugger.text) do
@@ -22,7 +22,7 @@ Debugger.draw = function()
     for _,e in pairs(Debugger.vline) do
         love.graphics.line(e, 0, e, love.graphics.getHeight())
     end
-    u.popColor()
+    PopColor()
 
 end
 

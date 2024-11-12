@@ -1,5 +1,5 @@
 local AbstractTile = (require "libs.ext.classic"):extend()
-local u = require "libs.util"
+--local u = require "libs.util"
 
 
 ---creates an abstract tile object (no default coordinates, type, contents)
@@ -59,10 +59,10 @@ end
 function AbstractTile:draw()
     if not self.drawable then return end
 
-    u.pushColor()
+    PushColor()
         love.graphics.draw(self.img.obj, self.pos()[1] + self.x, self.pos()[2] + self.y, 0, self.scale, self.scale)
 
-    u.popColor()
+    PopColor()
 end
 
 function AbstractTile:update(dt)

@@ -6,7 +6,7 @@ end
 
 
 -- static loads
-local util = require "libs.util"
+require "libs.util"
 require "classes.staticvalues"
 require "classes.debugger"
 

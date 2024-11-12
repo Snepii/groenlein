@@ -1,5 +1,5 @@
 local object = require "libs.ext.classic"
-local util = require "libs.util"
+--local util = require "libs.util"
 local entity = object:extend()
 
 function entity:new(x, y, img_path)
