@@ -30,8 +30,7 @@ seems fishy idk
 
 
 ### from google sheet:
-- put ideas here:
-https://docs.google.com/spreadsheets/d/1rjlbIJDYSPJyn-l1wUjcAy0hjb-23CEILwuhmw7x5kA/edit?usp=sharing
+- put ideas [into this google form](https://forms.gle/auWwnnfYoMxZBJNx5)
 
 
 
