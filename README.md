@@ -32,12 +32,3 @@ seems fishy idk
 ### from google sheet:
 - put ideas [into this google form](https://forms.gle/auWwnnfYoMxZBJNx5)
 
-
-
-
-
-
-
-
-
-- 12.11.2024 03:45:32, test test hehe
