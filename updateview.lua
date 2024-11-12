@@ -72,13 +72,16 @@ local updateScheduleFile = "updateschedule"
 
 local function readUpdateSchedule()
     local file = io.open(updateScheduleFile, "r")
+    local max = 80
     if file then
         local number = tonumber(file:read("*all"))
         file:close()
 
-        if number <= 0 then return 80 end
+        if number <= 0 then return max end
 
-        return number or 0  -- If the file is empty or contains invalid data, return 0
+        return number
+    else
+        return max
     end
 end
 
@@ -97,6 +100,9 @@ end
 
 function UpdateReadme()
     local currentSchedule = readUpdateSchedule()
+    if currentSchedule == nil then
+        error("updateview:UpdateReadme:currentSchedule is nil",2)
+    end
     currentSchedule = currentSchedule - 1  -- Decrement the number
     print("update schedule: " .. currentSchedule .. " starts left")
 
