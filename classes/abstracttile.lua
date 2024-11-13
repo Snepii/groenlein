@@ -1,16 +1,10 @@
 --todo@Snepii #4 should this be entity? for collision
-local AbstractTile = (require "libs.ext.classic"):extend()
+local AbstractTile = (require "classes.entity"):extend()
 --local u = require "libs.util"
 
 
 ---creates an abstract tile object (no default coordinates, type, contents)
 function AbstractTile:new()
-    --print("AbstractTile()")
-    self.id = 0
-
-    --print("abstracttile")
-    --print(self.tessellation)
-
     --whether the tile's draw function should be called
     self.drawable = false
 
@@ -45,7 +39,7 @@ end
 
 ---the mathematical position = coordinate * tessellation
 ---@return table
-function AbstractTile:getPos()
+function AbstractTile:getDrawPos()
     return {x = self.x * TheWorld.tessellation, y= self.y * TheWorld.tessellation}
 end
 
@@ -67,7 +61,7 @@ function AbstractTile:draw()
     if not self.drawable then return end
 
     PushColor()
-        local p = self:getPos()
+        local p = self:getDrawPos()
         love.graphics.draw(self.img.obj, p.x + self.x, p.y + self.y, 0, self.scale, self.scale)
 
     PopColor()
@@ -78,7 +72,7 @@ end
 ---@param y number
 ---@return boolean
 function AbstractTile:boundingBox(x,y)
-    local pos = self:getPos()
+    local pos = self:getDrawPos()
     if pos == nil or pos.x == nil or pos.y == nil then
         Debugger.print("pos", "nil.", 5)
         return false
