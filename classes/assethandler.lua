@@ -28,7 +28,6 @@ AssetHandler.Assets = {
 ---files and not in release
 ---as release will readily use those files
 ---@param name string
----@param asset_obj any
 ---@param tile_size number
 local function createAssetJson(name, tile_size)
     local qds = {}
