@@ -19,7 +19,7 @@ function Tile:new(x, y, img_path)
     self.properties = {}
 
     --whether player collision should be checked
-    self.checkCollisionPlayer = true
+    self.checkCollisionPlayer = false
 
     --whether entity collision should be checked
     self.checkCollisionEntity = false
@@ -32,8 +32,8 @@ function Tile:draw()
     if not self.drawable then return end
 
     PushColor()
-        love.graphics.draw(self.img.obj, self.pos.x, self.pos.y, 0, self.scale, self.scale)
-
+        --love.graphics.draw(self.img.obj, self.pos.x, self.pos.y, 0, self.scale, self.scale)
+      love.graphics.draw(AssetHandler.Assets[self.type].img, AssetHandler.Assets[self.type].quads[0][self.variant], self.pos.x, self.pos.y, 0,self.scale,self.scale)
     PopColor()
 end
 
@@ -54,6 +54,9 @@ function Tile:boundingBox(x,y)
 end
 
 function Tile:update(dt)
+    if not self.walkable then
+        return
+    end
     if self.checkCollisionPlayer then
         local pX, pY = ThePlayer.pos.x, ThePlayer.pos.y
         local pW, pH = ThePlayer.width, ThePlayer.height

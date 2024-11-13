@@ -8,17 +8,40 @@ function Player:new()
     self.move_left = false
     self.move_right = false
 
+    self.currentFrame = 1
+
     --speed = pixels/second
     self.speed = TheWorld.Tessellation * 2.5
 
+
 end
 
+function Player:draw()
+    local spriteimg = AssetHandler.Assets["Run-Sheet"].img
+    local quads = AssetHandler.Assets["Run-Sheet"].quads
+
+    local frame = quads[0][math.floor(self.currentFrame)]
+    local flip = Util.ifelse(self.pos.x > self.pos.last.x, 1, -1)
+    love.graphics.draw(spriteimg, frame, self.pos.x, self.pos.y, 0, 2*flip, 2, 32, 0)
+
+end
 
 local counter = 1
 local triggered = false
 function Player:update(dt)
-    self.super.update(self, dt)
 
+
+
+    if self.pos.x - self.pos.last.x ~= 0 or self.pos.y - self.pos.last.y ~= 0 then
+        print("!!!")
+        self.currentFrame = self.currentFrame + 10*dt
+    else
+        print("???? " .. self.pos.x .. "/" .. self.pos.last.x .. ", " .. self.pos.y.. "/"..self.pos.last.y)
+    end 
+    if self.currentFrame >= 6 then
+        self.currentFrame = 1
+    end
+    self.super.update(self, dt)
     
     
 

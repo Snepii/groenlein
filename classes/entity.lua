@@ -8,12 +8,18 @@ function entity:new(x, y, img_path)
     self.width = 0
     self.height = 0
 
-    if img_path then
-        print("fetching image " .. img_path)
-        self.img = (require "classes.image")(img_path)
-        print("done")
-        self.width = self.img.width
-        self.height = self.img.height
+    --todo@Snepii #9 see if theres a point in picking one over the other here
+    if img_path ~= nil and AssetHandler.Assets[string.gsub(img_path, "/", ".")] ~= nil then
+        
+    else
+
+        if img_path then
+            print("fetching image " .. img_path)
+            self.img = (require "classes.image")(img_path)
+            print("done")
+            self.width = self.img.width
+            self.height = self.img.height
+        end
     end
 
     self.pos = {
@@ -41,11 +47,6 @@ end
 ---@param e any
 ---@return boolean
 function entity:checkCollision(e)
-    out = {self.pos.x, self.pos.y, e.pos.x, e.pos.y, self.width, self.height, e.width, e.height}
-
-    for i,v in ipairs(out) do
-        print(i .. ":" .. v)
-    end
 
     return self.pos.x + self.width > e.pos.x
     and self.pos.x < e.pos.x + e.width
@@ -59,6 +60,7 @@ function entity:resolveCollision(e)
     local check = self:checkCollision(e)
     print("checking collision: " .. tostring(check))
     if check then
+        print("pushing back")
         if self:wasVerticallyAligned(e) then
             if self.pos.x + self.width/2 < e.pos.x + e.width/2  then
                 -- pusback = the right side of the player - the left side of the wall

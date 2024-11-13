@@ -1,6 +1,7 @@
 Types = {
     Ground = {
         Grass = "grass",
-        Rock = "rock"
+        Rock = "rock",
+        Dirt = "dirt"
     }
 }

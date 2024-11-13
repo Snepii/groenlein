@@ -38,21 +38,18 @@ end
 function World:populate()
     print("World:populate()")
     local groundTile = require "classes.groundtile"
-    local t = groundTile(3, 3,Types.Ground.Rock)
-    t.checkCollisionPlayer = true
 
-    table.insert(self.Ground, t)
-    --[[
+    
     local count = 0
-    for y=0,10 do
-        for x=0,1 do
-            local tile = groundTile(count, x+3, y+3, Util.ifelse(y==0, Types.Ground.Grass,Types.Ground.Rock))
-            tile.walkable = Util.ifelse(y==0, true, false)
+    for y=0,3 do
+        for x=0,10 do
+            local tile = groundTile(x+3, y+3, Types.Ground.Dirt, y)
+            --tile.walkable = false --Util.ifelse(y==1, true, false)
             tile.checkCollisionPlayer = Util.ifelse(y==0, true, false)
             table.insert(self.Ground, tile)
             count = count + 1
         end
-    end]]--
+    end
 end
 
 return World

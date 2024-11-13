@@ -8,26 +8,26 @@ require "classes.types"
 ---@param variant any
 function GroundTile:new(x, y, type, variant)
     print("GroundTile()")
-    GroundTile.super.new(self, x, y, GAMEPATH.GROUND_TEXTURES .. type .. ".png")
+    --GroundTile.super.new(self, x, y, GAMEPATH.GROUND_TEXTURES .. type .. ".png")
+    GroundTile.super.new(self, x, y, nil)
+
+    self.width = 16
+    AssetHandler.LoadSpriteImage(type, self.width)
 
 
     if type == nil then
-        self.type = Types.Ground.Grass
+        self.type = Types.Ground.Dirt
     else
         self.type = type
     end
 
+    ---to pick the right quad
     self.variant = variant
-    --self.img = (require "classes.image")()
 
     self.scale = TheWorld.Tessellation/self.width
     self.drawable = true
 
 
-    --[[Debugger.hl(self.y*TheWorld.tessellation)
-    Debugger.hl(self.y*TheWorld.tessellation + TheWorld.tessellation)
-    Debugger.vl(self.x*TheWorld.tessellation)
-    Debugger.vl(self.x *TheWorld.tessellation+TheWorld.tessellation)]]--
 end
 
 return GroundTile
