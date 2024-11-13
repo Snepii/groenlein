@@ -33,7 +33,9 @@ function Tile:draw()
 
     PushColor()
         --love.graphics.draw(self.img.obj, self.pos.x, self.pos.y, 0, self.scale, self.scale)
-      love.graphics.draw(AssetHandler.Assets[self.type].img, AssetHandler.Assets[self.type].quads[0][self.variant], self.pos.x, self.pos.y, 0,self.scale,self.scale)
+      --love.graphics.draw(AssetHandler.Assets[self.type].img, AssetHandler.Assets[self.type].quads[0][self.variant], self.pos.x, self.pos.y, 0,self.scale,self.scale)
+      local ass = AssetHandler.GetQuad(self.type, self.variant)  
+      love.graphics.draw(ass.img, ass.quad, self.pos.x, self.pos.y, 0,self.scale,self.scale)
     PopColor()
 end
 

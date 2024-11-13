@@ -11,8 +11,8 @@ function GroundTile:new(x, y, type, variant)
     --GroundTile.super.new(self, x, y, GAMEPATH.GROUND_TEXTURES .. type .. ".png")
     GroundTile.super.new(self, x, y, nil)
 
-    self.width = 16
-    AssetHandler.LoadSpriteImage(type, self.width)
+    self.width = 32
+    --AssetHandler.LoadSpriteImage(type, self.width)
 
 
     if type == nil then
@@ -23,6 +23,8 @@ function GroundTile:new(x, y, type, variant)
 
     ---to pick the right quad
     self.variant = variant
+
+    self.asset = AssetHandler.GetQuad(self.type, self.variant)
 
     self.scale = TheWorld.Tessellation/self.width
     self.drawable = true

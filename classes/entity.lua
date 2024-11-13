@@ -29,6 +29,10 @@ function entity:new(x, y, img_path)
         tile = { x = function() return x / TheWorld.Tesselation end,
                  y = function() return y / TheWorld.Tesselation end}
     }
+
+    self.variant = Variants.Default
+
+    print("finished Entity()")
 end
 
 function entity:update(dt)

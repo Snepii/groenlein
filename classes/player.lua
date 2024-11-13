@@ -13,16 +13,18 @@ function Player:new()
     --speed = pixels/second
     self.speed = TheWorld.Tessellation * 2.5
 
+    self.asset = AssetHandler.GetAll("Run-Sheet")
 
+    print("finished player")
 end
 
 function Player:draw()
-    local spriteimg = AssetHandler.Assets["Run-Sheet"].img
-    local quads = AssetHandler.Assets["Run-Sheet"].quads
 
-    local frame = quads[0][math.floor(self.currentFrame)]
+    print("getting player assets")
+    local frame = self.asset.quads[tostring(math.floor(self.currentFrame))]
+    print("got player assets")
     local flip = Util.ifelse(self.pos.x > self.pos.last.x, 1, -1)
-    love.graphics.draw(spriteimg, frame, self.pos.x, self.pos.y, 0, 2*flip, 2, 32, 0)
+    love.graphics.draw(self.asset.img, frame, self.pos.x, self.pos.y, 0, 2*flip, 2, 32, 0)
 
 end
 
