@@ -1,5 +1,22 @@
 Debugger = {}
 
+---function to only run test code and stop after;
+---@param fct function
+Debugger.intercept = function(fct, quit)
+    print("intercepting")
+
+    fct()
+
+    print("intercept finished")
+
+    if quit then
+        print("quitting")
+        love.event.quit()
+    else
+        print("continuing")
+    end
+end
+
 ---draws everything stored in the debugger to the screen
 Debugger.draw = function()
     PushColor()
