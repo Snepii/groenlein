@@ -24,7 +24,9 @@ AssetHandler.Assets = {
 ---
 
 
----creates asset.json and asset_grid.png
+---this will only be used for creation of helper asset.json and asset_grid.png
+---files and not in release
+---as release will readily use those files
 ---@param name string
 ---@param asset_obj any
 ---@param tile_size number
