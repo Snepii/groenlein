@@ -10,6 +10,32 @@ function Util.file_exists(name)
    if f~=nil then io.close(f) return true else return false end
 end
 
+---handles the opening, output, closing of files
+---@param name string "has to include the path"
+---@param content any
+---@param mode string "default \"w\""
+function Util.writeFile(name, content, mode)
+   local file = io.open(name,mode or "w")
+   io.output(file)
+   io.write(content)
+   io.close()
+   io.output()
+end
+
+---handles the opening, input, closing of files
+---@param name string "has to include the path"
+---@param mode string "default \"r\""
+---@return string
+function Util.readFile(name, mode)
+   local file = io.open(name, mode or "r")
+   io.input(file)
+   local string = io.read()
+   io.close(file)
+   io.input()
+   return string
+end
+
+
 --- replacement for (a==nil)?b:a
 ---@param if_nil any
 ---@param else_value any
