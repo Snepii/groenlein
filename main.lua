@@ -96,6 +96,7 @@ end
 
 
 function love.update(dt)
+  print("love:update()")
   Debugger.print("tick", TheWorld.Tick)
 
   if OnTitleScreen then    
@@ -114,6 +115,7 @@ function love.update(dt)
 end
 
 function love.draw()
+  print("love:draw")
   if OnTitleScreen then
     TitleMenu:draw()
     return

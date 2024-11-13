@@ -3,7 +3,7 @@ local TitleMenu = (require "classes.menu"):extend()
 require "classes.staticvalues"
 
 function TitleMenu:new()
-    self.super.new(self, 0, "GROENLEIN", "vertical", COLOR.TitleMenuBackground, 0, 0, COLOR.White)
+    TitleMenu.super.new(self, 0, "GROENLEIN", "vertical", COLOR.TitleMenuBackground, 0, 0, COLOR.White)
 
 
     local btnStart = (require "classes.menubutton")(1, "default", COLOR.TitleMenuButtonBackground, COLOR.TitleMenuButtonHoverColor, COLOR.TitleMenuButtonText, nil, "START",400,200, 50)

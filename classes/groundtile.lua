@@ -6,9 +6,11 @@ require "classes.types"
 ---@param y number
 ---@param type any
 ---@param variant any
-function GroundTile:new(id, x, y, type, variant)
-    self.super.new(self)
-    self.super.setup(self,id,x,y)
+function GroundTile:new(x, y, type, variant)
+    print("GroundTile()")
+    GroundTile.super.new(self)
+    print("supered GroundTile")
+    self.super.setup(self,x,y)
     
 
     if type == nil then

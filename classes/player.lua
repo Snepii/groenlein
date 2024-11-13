@@ -1,10 +1,8 @@
 local Player = (require "classes.entity"):extend()
---local u = require "libs.util"
-local world = require "classes.world"
 
 function Player:new()
     print("Player()")
-    self.super.new(self, 5, 5, GAMEPATH.TEXTURES .. "player.png")
+    Player.super.new(self, 5, 5, GAMEPATH.TEXTURES .. "player.png")
     self.move_up = false
     self.move_down = false
     self.move_left = false

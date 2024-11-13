@@ -2,10 +2,19 @@ local object = require "libs.ext.classic"
 local entity = object:extend()
 
 function entity:new(x, y, img_path)
-    self.img = (require "classes.image")(img_path)
-    
-    self.width = self.img.width
-    self.height = self.img.height
+    print("Entity()")
+
+    --todo@Snepii #8 is this a sensible default?
+    self.width = 0
+    self.height = 0
+
+    if img_path then
+        print("fetching image " .. img_path)
+        self.img = (require "classes.image")(img_path)
+        print("done")
+        self.width = self.img.width
+        self.height = self.img.height
+    end
 
     self.pos = {
         x = x,
@@ -29,6 +38,18 @@ end
 ---@param e any
 ---@return boolean
 function entity:checkCollision(e)
+    if self.pos then
+        print("pos!")
+    end
+
+    if self.width then
+        print("self width")
+    end
+
+    if e.width then
+        print("e width")
+    end
+
     return self.pos.x + self.width > e.pos.x
     and self.pos.x < e.pos.x + e.width
     and self.pos.y + self.height > e.pos.y
@@ -38,6 +59,18 @@ end
 ---how to handle collision
 ---@param e any
 function entity:resolveCollision(e)
+    if self.checkCollision then
+        print("self!")
+    end
+
+    if entity.checkCollision then
+        print("entity!")
+    end
+
+    if e.checkCollision then
+        print("e!")
+    end
+
     if self:checkCollision(e) then
         if self:wasVerticallyAligned(e) then
             if self.pos.x + self.width/2 < e.pos.x + e.width/2  then

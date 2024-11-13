@@ -14,12 +14,14 @@ function World:new()
 end
 
 function World:draw()
+    print("World:draw()")
     for _,g in pairs(self.Ground) do
         g:draw()
     end
 end
 
 function World:update(dt)
+    print("World:update()")
     --todo@Snepii #1 check out the tick library
     self.PreciseTick = (self.PreciseTick + dt)%60
 
@@ -34,8 +36,9 @@ end
 --todo@Snepii #2 figure out how to generate the world
 ---just for the time being to see some world drawn
 function World:populate()
+    print("World:populate()")
     local groundTile = require "classes.groundtile"
-    local t = groundTile(0, 3, 3,Types.Ground.Rock)
+    local t = groundTile(3, 3,Types.Ground.Rock)
     t.checkCollisionPlayer = true
 
     table.insert(self.Ground, t)

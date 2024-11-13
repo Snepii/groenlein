@@ -4,18 +4,18 @@ local AbstractTile = (require "classes.entity"):extend()
 
 
 ---creates an abstract tile object (no default coordinates, type, contents)
+Counter = 0
 function AbstractTile:new()
+    AbstractTile.super.new(self)
+
     --whether the tile's draw function should be called
     self.drawable = false
 
-    --the game x-coordinate
-    self.x = nil
+    --game coordinates
+    self.pos = {x = nil, y = nil}
 
     --the fraction of the x-coordinate (0..tessellation)
     self.dx = nil
-
-    --the game y-coordinate
-    self.y = nil 
 
     --the fraction of the y-coordinate (0..tessellation)
     self.dy = nil
@@ -40,7 +40,7 @@ end
 ---the mathematical position = coordinate * tessellation
 ---@return table
 function AbstractTile:getDrawPos()
-    return {x = self.x * TheWorld.tessellation, y= self.y * TheWorld.tessellation}
+    return {x = self.pos.x * TheWorld.tessellation, y= self.pos.y * TheWorld.tessellation}
 end
 
 ---add game coordinates to a tile after creation
@@ -48,10 +48,9 @@ end
 ---@param y number
 ---@param dx number
 ---@param dy number
-function AbstractTile:setup(id, x, y, dx, dy)
-    self.id = id
-    self.x = x
-    self.y = y
+function AbstractTile:setup(x, y, dx, dy)
+    self.pos.x = x
+    self.pos.y = y
     self.dx = dx
     self.dy = dy
 end
@@ -62,7 +61,7 @@ function AbstractTile:draw()
 
     PushColor()
         local p = self:getDrawPos()
-        love.graphics.draw(self.img.obj, p.x + self.x, p.y + self.y, 0, self.scale, self.scale)
+        love.graphics.draw(self.img.obj, p.x + self.pos.x, p.y + self.pos.y, 0, self.scale, self.scale)
 
     PopColor()
 end
@@ -86,14 +85,17 @@ end
 function AbstractTile:update(dt)
     if self.checkCollisionPlayer then
         local pX, pY = ThePlayer.pos.x, ThePlayer.pos.y
-        local pW, pH = ThePlayer.img.width, ThePlayer.img.height
+        local pW, pH = ThePlayer.width, ThePlayer.height
 
+
+        print("self.width = " .. self.width)
         ThePlayer:resolveCollision(self)
         --[[if self:boundingBox(pX, pY) and self:boundingBox(pX + pW, pY + pH) then
             ThePlayer.pos.x = ThePlayer.pos.last.x
             ThePlayer.pos.y = ThePlayer.pos.last.y
         end]]--
     end
+
 end
 
 return AbstractTile
