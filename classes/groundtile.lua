@@ -1,17 +1,15 @@
 local GroundTile = (require "classes.abstracttile"):extend()
 require "classes.types"
 
----creates a new ground object at the given game coordinate and given type (e.g. material) and variant (e.g. orientation)
+---creates a new ground object at the given game tile coordinate and given type (e.g. material) and variant (e.g. orientation)
 ---@param x number
 ---@param y number
 ---@param type any
 ---@param variant any
 function GroundTile:new(x, y, type, variant)
     print("GroundTile()")
-    GroundTile.super.new(self)
-    print("supered GroundTile")
-    self.super.setup(self,x,y)
-    
+    GroundTile.super.new(self, x, y, GAMEPATH.GROUND_TEXTURES .. type .. ".png")
+
 
     if type == nil then
         self.type = Types.Ground.Grass
@@ -20,10 +18,11 @@ function GroundTile:new(x, y, type, variant)
     end
 
     self.variant = variant
-    self.img = (require "classes.image")(GAMEPATH.GROUND_TEXTURES .. type .. ".png")
+    --self.img = (require "classes.image")()
 
-    self.scale = TheWorld.tessellation/self.img.width
+    self.scale = TheWorld.Tessellation/self.width
     self.drawable = true
+
 
     --[[Debugger.hl(self.y*TheWorld.tessellation)
     Debugger.hl(self.y*TheWorld.tessellation + TheWorld.tessellation)

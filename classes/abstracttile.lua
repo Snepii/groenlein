@@ -1,24 +1,13 @@
 --todo@Snepii #4 should this be entity? for collision
-local AbstractTile = (require "classes.entity"):extend()
+local Tile = (require "classes.entity"):extend()
 --local u = require "libs.util"
 
 
----creates an abstract tile object (no default coordinates, type, contents)
-Counter = 0
-function AbstractTile:new()
-    AbstractTile.super.new(self)
+function Tile:new(x, y, img_path)
+    Tile.super.new(self, x*TheWorld.Tessellation, y*TheWorld.Tessellation, img_path)
 
     --whether the tile's draw function should be called
     self.drawable = false
-
-    --game coordinates
-    self.pos = {x = nil, y = nil}
-
-    --the fraction of the x-coordinate (0..tessellation)
-    self.dx = nil
-
-    --the fraction of the y-coordinate (0..tessellation)
-    self.dy = nil
 
     --the scale factor given to the draw function based on image size and tessellation
     self.scale = 1
@@ -37,31 +26,13 @@ function AbstractTile:new()
 
 end
 
----the mathematical position = coordinate * tessellation
----@return table
-function AbstractTile:getDrawPos()
-    return {x = self.pos.x * TheWorld.tessellation, y= self.pos.y * TheWorld.tessellation}
-end
-
----add game coordinates to a tile after creation
----@param x number
----@param y number
----@param dx number
----@param dy number
-function AbstractTile:setup(x, y, dx, dy)
-    self.pos.x = x
-    self.pos.y = y
-    self.dx = dx
-    self.dy = dy
-end
 
 
-function AbstractTile:draw()
+function Tile:draw()
     if not self.drawable then return end
 
     PushColor()
-        local p = self:getDrawPos()
-        love.graphics.draw(self.img.obj, p.x + self.pos.x, p.y + self.pos.y, 0, self.scale, self.scale)
+        love.graphics.draw(self.img.obj, self.pos.x, self.pos.y, 0, self.scale, self.scale)
 
     PopColor()
 end
@@ -70,7 +41,7 @@ end
 ---@param x number
 ---@param y number
 ---@return boolean
-function AbstractTile:boundingBox(x,y)
+function Tile:boundingBox(x,y)
     local pos = self:getDrawPos()
     if pos == nil or pos.x == nil or pos.y == nil then
         Debugger.print("pos", "nil.", 5)
@@ -79,10 +50,10 @@ function AbstractTile:boundingBox(x,y)
         Debugger.print("pos", pos.x .."," ..pos.y,5)
     end
     --todo@Snepii #5 revisit the collision resolver
-    return (x>pos.x and x< pos.x + TheWorld.tessellation) ~= (y > pos.y and y < TheWorld.tessellation)
+    return (x>pos.x and x< pos.x + TheWorld.Tessellation) ~= (y > pos.y and y < TheWorld.Tessellation)
 end
 
-function AbstractTile:update(dt)
+function Tile:update(dt)
     if self.checkCollisionPlayer then
         local pX, pY = ThePlayer.pos.x, ThePlayer.pos.y
         local pW, pH = ThePlayer.width, ThePlayer.height
@@ -98,4 +69,4 @@ function AbstractTile:update(dt)
 
 end
 
-return AbstractTile
+return Tile

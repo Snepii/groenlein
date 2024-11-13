@@ -9,7 +9,7 @@ function Player:new()
     self.move_right = false
 
     --speed = pixels/second
-    self.speed = TheWorld.tessellation * 2.5
+    self.speed = TheWorld.Tessellation * 2.5
 
 end
 

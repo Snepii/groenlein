@@ -19,13 +19,16 @@ function entity:new(x, y, img_path)
     self.pos = {
         x = x,
         y = y,
-        last = { x = x, y = y }
+        last = { x = x, y = y },
+        tile = { x = function() return x / TheWorld.Tesselation end,
+                 y = function() return y / TheWorld.Tesselation end}
     }
 end
 
 function entity:update(dt)
     self.pos.last.x = self.pos.x
     self.pos.last.y = self.pos.y
+
 end
 
 function entity:draw()
@@ -38,16 +41,10 @@ end
 ---@param e any
 ---@return boolean
 function entity:checkCollision(e)
-    if self.pos then
-        print("pos!")
-    end
+    out = {self.pos.x, self.pos.y, e.pos.x, e.pos.y, self.width, self.height, e.width, e.height}
 
-    if self.width then
-        print("self width")
-    end
-
-    if e.width then
-        print("e width")
+    for i,v in ipairs(out) do
+        print(i .. ":" .. v)
     end
 
     return self.pos.x + self.width > e.pos.x
@@ -59,19 +56,9 @@ end
 ---how to handle collision
 ---@param e any
 function entity:resolveCollision(e)
-    if self.checkCollision then
-        print("self!")
-    end
-
-    if entity.checkCollision then
-        print("entity!")
-    end
-
-    if e.checkCollision then
-        print("e!")
-    end
-
-    if self:checkCollision(e) then
+    local check = self:checkCollision(e)
+    print("checking collision: " .. tostring(check))
+    if check then
         if self:wasVerticallyAligned(e) then
             if self.pos.x + self.width/2 < e.pos.x + e.width/2  then
                 -- pusback = the right side of the player - the left side of the wall
