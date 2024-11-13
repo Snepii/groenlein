@@ -43,7 +43,9 @@ function World:populate()
     local count = 0
     for y=0,3 do
         for x=0,10 do
-            local tile = groundTile(x+3, y+3, Types.Ground.Dirt, y)
+            local var = Util.ifelse(y==0, Variants.Top, Util.ifelse(y==3, Variants.Bottom, Variants.Middle))
+            var = Util.ifelse(x==0, var.Left, Util.ifelse(x==10, var.Right, var.Middle))
+            local tile = groundTile(x+3, y+3, Types.Ground.Dirt, var)
             --tile.walkable = false --Util.ifelse(y==1, true, false)
             tile.checkCollisionPlayer = Util.ifelse(y==0, true, false)
             table.insert(self.Ground, tile)

@@ -1,3 +1,11 @@
+-- ctrl shift b to run build task
+
+-- love.math.random is better seeded than luas
+-- camera libs: Gamera, Stalker-X
+-- better collision handling: Bump, HC
+-- serialization and other stuff: lume
+
+
 io.stdout:setvbuf("no")
 
 if arg[2] == "debug" then
@@ -5,11 +13,13 @@ if arg[2] == "debug" then
 end
 
 -- global loads & fields
+require "classes.types"
 require "updateview"
 require "libs.util"
 require "classes.staticvalues"
 require "classes.debugger"
 require "classes.assethandler"
+JSON = require "libs.ext.json"
 
 TheWorld = (require "classes.world")()
 ThePlayer = (require "classes.player")()
@@ -91,8 +101,9 @@ function love.load()
   -- do NOT add TitleMenu to Callback Table
   TitleMenu = (require "classes.titlemenu")()
   
+  print("load sprite in main")
   AssetHandler.LoadSpriteImage("Run-Sheet", 64)
-
+  print("after loadsprite in main")
 
 
 end
