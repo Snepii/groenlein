@@ -1,5 +1,8 @@
 local Debugger = {}
 
+--todo@Snepii #13 debugger needs its own canvas
+
+
 ---function to only run test code and stop after;
 ---@param fct function
 Debugger.intercept = function(fct, quit)
