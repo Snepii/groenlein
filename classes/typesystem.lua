@@ -41,6 +41,10 @@ TypeSystem.Variants = {
             Middle = "obm",
             Right = "obr"
         }
+    },
+    Chest ={
+        Closed = "cc",
+        Opened = "co"
     }
 }
 
