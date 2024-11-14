@@ -158,9 +158,7 @@ end
 ---@param variant string "either of Types.Variant or frames for animation (like character)"
 ---@return table "{img, quad} the original image and the assigned quad"
 AssetHandler.GetQuad = function(asset_name, variant)
-    if asset_name == "dirt" then
-        print("pause")
-    end
+
     ---check if asset exists, if not try to load
     local obj = AssetHandler.Assets[asset_name]
     if obj == nil then

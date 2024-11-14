@@ -14,14 +14,14 @@ function World:new()
 end
 
 function World:draw()
-    print("World:draw()")
+    --print("World:draw()")
     for _,g in pairs(self.Ground) do
         g:draw()
     end
 end
 
 function World:update(dt)
-    print("World:update()")
+    --print("World:update()")
     --todo@Snepii #1 check out the tick library
     self.PreciseTick = (self.PreciseTick + dt)%60
 

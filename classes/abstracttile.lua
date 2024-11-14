@@ -64,7 +64,7 @@ function Tile:update(dt)
         local pW, pH = Groenlein.ThePlayer.width, Groenlein.ThePlayer.height
 
 
-        print("self.width = " .. self.width)
+        --print("self.width = " .. self.width)
         Groenlein.ThePlayer:resolveCollision(self)
         --[[if self:boundingBox(pX, pY) and self:boundingBox(pX + pW, pY + pH) then
             Groenlein.ThePlayer.pos.x = Groenlein.ThePlayer.pos.last.x
