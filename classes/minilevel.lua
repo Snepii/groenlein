@@ -49,19 +49,19 @@ function MiniLevel:new(id,width,height, ...)
     self.ground = { }
 
     local var, var2
-    for y=0,self.height do
+    for y=0,self.height-1 do
         if y == 0 then
             var = Groenlein.TypeSystem.Variants.Top
-        elseif y == self.height then
+        elseif y == self.height-1 then
             var = Groenlein.TypeSystem.Variants.Outer.Bottom
         else
             var = Groenlein.TypeSystem.Variants.Outer.Middle
         end
 
-        for x=0,self.width do
+        for x=0,self.width-1 do
             if x == 0 then
                 var2 = var.Left
-            elseif x==self.width then
+            elseif x==self.width-1 then
                 var2 = var.Right
             else
                 var2 = var.Middle
@@ -91,7 +91,7 @@ function MiniLevel:draw()
         --love.graphics.translate(64, 32)
         --love.graphics.setCanvas(Groenlein.Util.pop("canvas"))
         love.graphics.push()
-    love.graphics.origin()
+    --love.graphics.origin()
 
 
         local dx = 150
