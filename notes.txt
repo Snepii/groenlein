@@ -6,3 +6,7 @@ git annotations
   "FIXME",
   "ISSUE",
   "HACK"
+
+
+  instanceof: 
+    if e extends classic -> e:is(class)
