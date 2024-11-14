@@ -46,7 +46,7 @@ local function createAssetJson(name, tile_size)
             for x=0,asset_obj.img:getWidth()/tile_size-1 do
                 ---creates a table that assigns tile (x,y) the
                 ---default variant
-                table.insert(qds, {y=y,x=x,var=Variants.Default})
+                table.insert(qds, {y=y,x=x,var=Groenlein.TypeSystem.Variants.Default})
 
                 if x == 0 then
                     love.graphics.print(y, tile_size/2, tile_size/2 + tile_size * y)
@@ -94,7 +94,10 @@ local function loadAssetJson(asset_name)
 end
 
 
-AssetHandler.LoadSpriteImage = function(asset_name, none, debug_tile_size)
+---call this first to initialize a new texture for the creation of the json file
+---@param asset_name string
+---@param debug_tile_size integer "use this only the first time to put this into the json"
+AssetHandler.LoadSpriteImage = function(asset_name, debug_tile_size)
     ---load an asset by name only once
     if AssetHandler.Assets[asset_name] ~= nil then return end
 
@@ -108,6 +111,7 @@ AssetHandler.LoadSpriteImage = function(asset_name, none, debug_tile_size)
         quadMetaData = loadAssetJson(asset_name)
     else
         createAssetJson(asset_name, debug_tile_size)
+        error("stopping for creation",1)
     end
     
     --todo@Snepii #10 texture bleeding?
