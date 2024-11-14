@@ -20,6 +20,7 @@ Groenlein.Util = require "libs.util"
 Groenlein.UpdateView = require "updateview"
 Groenlein.Debugger = require "classes.debugger"
 Groenlein.JSON = require "libs.ext.json"
+Groenlein.Lume = require "libs.ext.lume"
 Groenlein.Image = require "classes.image"
 
 Groenlein.AssetHandler = require "classes.assethandler"
@@ -108,7 +109,6 @@ function love.load()
   end
 
   AddCallback(Groenlein.TheWorld, true, true, false, false)
-  AddCallback(Groenlein.ThePlayer, true, true, true, false)
 
 
   --todo@Snepii #7 change
@@ -130,15 +130,19 @@ function love.load()
   --local level2 = (require "classes.minilevel")("test2", 200, 200, (require "classes.image")(GAMEPATH.TEXTURES .. "undef.png"))
   local level3 = Groenlein.Classes.MiniLevel("test3", 5,5)
   AddCallback(level3, false, true, false, false)
+  AddCallback(Groenlein.ThePlayer, true, true, true, false)
+
+  level3:setSpawn(0,0)
+  Groenlein.ThePlayer:travel(level3)
 end
 
 
 function love.update(dt)
-  Debugger.print("tick", Groenlein.TheWorld.Tick)
+  Groenlein.Debugger.print("tick", Groenlein.TheWorld.Tick)
 
   if OnTitleScreen then    
     TitleMenu:update(dt)
-    Debugger.draw()
+    Groenlein.Debugger.draw()
     return
   end
   --menu:update()
@@ -166,7 +170,7 @@ function love.draw()
     item:draw()
   end
 
-  Debugger.draw()
+  Groenlein.Debugger.draw()
 
 end
 
@@ -195,6 +199,11 @@ function love.keypressed(key, scan_code, is_repeat)
 end
 
 function love.keyreleased(key,scan_code)
+  if key == "f" then
+    Groenlein.Debugger.Enabled = not Groenlein.Debugger.Enabled
+    --print("debug: " .. tostring(Groenlein.Debugger.Enabled))
+  end
+
   for _,item in pairs(CallbackItems.Key) do
     if item.keyreleased ~= nil then
       item:keyreleased(key, scan_code)
