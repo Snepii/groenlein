@@ -10,3 +10,11 @@ git annotations
 
   instanceof: 
     if e extends classic -> e:is(class)
+
+
+    https://love2d.org/wiki/TLfres deprecated?
+    instead https://love2d.org/forums/viewtopic.php?t=92494    
+
+
+tile map editor https://love2d.org/forums/viewtopic.php?f=5&t=76983
+
