@@ -21,22 +21,22 @@ Groenlein.UpdateView = require "updateview"
 Groenlein.Debugger = require "classes.debugger"
 Groenlein.JSON = require "libs.ext.json"
 Groenlein.Lume = require "libs.ext.lume"
-Groenlein.Image = require "classes.image"
+Groenlein.Image = require "libs.image"
 
 Groenlein.AssetHandler = require "classes.assethandler"
 
 Groenlein.Classes = {}
+
 Groenlein.Classes.Menu = require "classes.menu"
 Groenlein.Classes.MenuElement = require "classes.menuelement"
 Groenlein.Classes.MenuButton = require "classes.menubutton"
 Groenlein.Classes.TitleMenu = require "classes.titlemenu"
 
 Groenlein.Classes.Entity = require "classes.entity"
-
-
 Groenlein.Classes.AbstractTile = require "classes.abstracttile"
 Groenlein.Classes.GroundTile = require "classes.groundtile"
 Groenlein.Classes.MiniLevel = require "classes.minilevel"
+Groenlein.Classes.Box = require "classes.box"
 
 
 Groenlein.TheWorld = (require "classes.world")()
@@ -112,7 +112,7 @@ function love.load()
 
 
   --todo@Snepii #7 change
-  Groenlein.TheWorld:populate()
+  --Groenlein.TheWorld:populate()
 
   OnTitleScreen = true
 
@@ -121,19 +121,25 @@ function love.load()
   TitleMenu = Groenlein.Classes.TitleMenu()
   
   print("load sprite in main")
-  Groenlein.AssetHandler.LoadSpriteImage("Run-Sheet", 64)
+  Groenlein.AssetHandler.LoadSpriteImage("Run-Sheet")
   print("after loadsprite in main")
 
 
 
   --local level = (require "classes.minilevel")("test", 200, 200, {0.5,0.2,0.5,1})
   --local level2 = (require "classes.minilevel")("test2", 200, 200, (require "classes.image")(GAMEPATH.TEXTURES .. "undef.png"))
-  local level3 = Groenlein.Classes.MiniLevel("test3", 5,5)
+  local level3 = Groenlein.Classes.MiniLevel("test3", 3,3)
   AddCallback(level3, false, true, false, false)
   AddCallback(Groenlein.ThePlayer, true, true, true, false)
 
-  level3:setSpawn(0,0)
+  level3:setSpawn(3,0)
+
   Groenlein.ThePlayer:travel(level3)
+
+  Groenlein.AssetHandler.LoadSpriteImage("chest", 32)
+
+  local chest = Groenlein.Classes.Box(5,10)
+  AddCallback(chest, true, true,true, false)
 end
 
 
@@ -176,25 +182,33 @@ end
 
 function love.mousepressed(x,y,button,is_touch)
   for _,item in pairs(CallbackItems.Mouse) do
-    item:mousepressed(x,y,button,is_touch)
+    if item.mousepressed then
+      item:mousepressed(x,y,button,is_touch)
+    end
   end
 end
 
 function love.mousereleased(x,y,button,is_touch)
   for _,item in pairs(CallbackItems.Mouse) do
-    item:mousereleased(x,y,button,is_touch)
+    if item.mousereleased then
+      item:mousereleased(x,y,button,is_touch)
+    end
   end
 end
 
 function love.wheelmoved(x, y)
   for _,item in pairs(CallbackItems.Mouse) do
-    item:wheelmoved(x, y)
+    if item.wheelmoved then
+      item:wheelmoved(x, y)
+    end
   end
 end
 
 function love.keypressed(key, scan_code, is_repeat)
   for _,item in pairs(CallbackItems.Key) do
-    item:keypressed(key, scan_code, is_repeat)
+    if item.keypressed then
+      item:keypressed(key, scan_code, is_repeat)
+    end
   end
 end
 
@@ -205,7 +219,7 @@ function love.keyreleased(key,scan_code)
   end
 
   for _,item in pairs(CallbackItems.Key) do
-    if item.keyreleased ~= nil then
+    if item.keyreleased then
       item:keyreleased(key, scan_code)
     end
   end
