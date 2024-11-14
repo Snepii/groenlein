@@ -79,7 +79,7 @@ function Player:update(dt)
 end
 
 function Player:checkDistance(entity, dist)
-    if Groenlein.Lume.distance(self.pos.x, self.pos.y, entity.pos.x, entity.pos.y, false) <= dist then
+    if Groenlein.Lume.distance(self.pos.x + self.width/2, self.pos.y, entity.pos.x+entity.width/2, entity.pos.y+entity.height/2, false) <= dist then
         return true
     else return false
     end
