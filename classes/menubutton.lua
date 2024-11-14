@@ -4,11 +4,11 @@ local menubutton = obj:extend()
 local element = require "classes.menuelement"
 --TODO: static id list?
 
-function menubutton:new(id, style, main_color, hovor_color, text_color, img_path, text, width, height, r)
+function menubutton:new(id, style, main_color, hover_color, text_color, img_path, text, width, height, r)
     self.style = style
     self.id = id
     self.maincolor = main_color
-    self.hovercolor = hovor_color
+    self.hovercolor = hover_color
     self.textcolor = text_color
     if img_path ~= nil then
         self.img = require "classes.image"
