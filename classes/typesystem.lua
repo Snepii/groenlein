@@ -24,6 +24,23 @@ TypeSystem.Variants = {
         Left = "bl",
         Middle = "bm",
         Right = "br"
+    },
+    Outer = {
+        Bottom = {
+            Left = "otl",
+            Middle = "otm",
+            Right = "otr"
+        },
+        Middle = {
+            Left = "oml",
+            Right = "omr",
+            Middle = "mm"
+        },
+        Top = {
+            Left = "obl",
+            Middle = "obm",
+            Right = "obr"
+        }
     }
 }
 

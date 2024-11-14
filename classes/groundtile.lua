@@ -16,7 +16,7 @@ function GroundTile:new(x, y, type, variant)
 
 
     if type == nil then
-        self.type = Types.Ground.Dirt
+        self.type = Groenlein.TypeSystem.Types.Ground.Dirt
     else
         self.type = type
     end

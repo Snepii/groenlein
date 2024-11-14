@@ -128,7 +128,8 @@ function love.load()
 
   --local level = (require "classes.minilevel")("test", 200, 200, {0.5,0.2,0.5,1})
   --local level2 = (require "classes.minilevel")("test2", 200, 200, (require "classes.image")(GAMEPATH.TEXTURES .. "undef.png"))
-  local level3 = Groenlein.Classes.MiniLevel("test3", 200, 200)
+  local level3 = Groenlein.Classes.MiniLevel("test3", 5,5)
+  AddCallback(level3, false, true, false, false)
 end
 
 
