@@ -6,6 +6,16 @@ function Image:new(path)
     self.obj = love.graphics.newImage(Util.ifelsenil(path, GAMEPATH.TEXTURES .. "test.png"))
     self.width = self.obj:getWidth()
     self.height = self.obj:getHeight()
+
+    print("Is self an instance of Image?", self:is(Image))
+
+    -- Ensure 'is' is a function and returns expected results
+    print("Type of self.is:", type(self.is))
+    print("Self:is(Image):", self:is(Image))
+
+    -- Optional: Assertion for automated feedback
+    assert(self:is(Image), "Error: self should be an instance of Image")
+
     --self.updateImg(self, self.path)
 end
 

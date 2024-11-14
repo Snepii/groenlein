@@ -106,6 +106,9 @@ function love.load()
   print("after loadsprite in main")
 
 
+  --local level = (require "classes.minilevel")("test", 200, 200, {0.5,0.2,0.5,1})
+  --local level2 = (require "classes.minilevel")("test2", 200, 200, (require "classes.image")(GAMEPATH.TEXTURES .. "undef.png"))
+  local level3 = (require "classes.minilevel")("test3", 200, 200)
 end
 
 
