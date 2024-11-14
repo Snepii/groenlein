@@ -51,7 +51,7 @@ function MiniLevel:new(id,width,height, ...)
     local var, var2
     for y=0,self.height do
         if y == 0 then
-            var = Groenlein.TypeSystem.Variants.Outer.Top
+            var = Groenlein.TypeSystem.Variants.Top
         elseif y == self.height then
             var = Groenlein.TypeSystem.Variants.Outer.Bottom
         else
@@ -70,17 +70,50 @@ function MiniLevel:new(id,width,height, ...)
         end
     end
 
-    print("finished MiniLevel()")
+    self.canvas = love.graphics.newCanvas() 
+    --love.graphics.newCanvas((1+self.width) * Groenlein.TheWorld.Tessellation, (1+self.height) * Groenlein.TheWorld.Tessellation)
+    print("width " .. self.width * Groenlein.TheWorld.Tessellation)
+    print("height " .. self.height * Groenlein.TheWorld.Tessellation)
+
+    print("finished MiniLevel() " .. self.canvas:getWidth() .. ", " .. self.canvas:getHeight())
 end
 
 function MiniLevel:setSpawn(x,y)
     self.spawnpoint = {x=x,y=y}
 end
 
+
+
 function MiniLevel:draw()
-    for _,g in pairs(self.ground) do
-        g:draw()
-    end
+    --Groenlein.Util.push("canvas", love.graphics.getCanvas())
+    love.graphics.setCanvas(self.canvas)
+        love.graphics.clear()
+        --love.graphics.translate(64, 32)
+        --love.graphics.setCanvas(Groenlein.Util.pop("canvas"))
+        love.graphics.push()
+    love.graphics.origin()
+
+
+        local dx = 150
+        local dy = 50
+        love.graphics.translate(dx, dy)
+
+
+            Groenlein.Debugger.tickCirc(200,200)
+            Groenlein.Debugger.hl(dy)
+            Groenlein.Debugger.hl(dy + self.height * Groenlein.TheWorld.Tessellation)
+            Groenlein.Debugger.vl(dx)
+            Groenlein.Debugger.vl(dx + self.width * Groenlein.TheWorld.Tessellation)
+
+
+        for _,g in pairs(self.ground) do
+            g:draw()
+        end
+
+    love.graphics.pop()
+    love.graphics.setCanvas()
+
+    love.graphics.draw(self.canvas)
 end
 
 
