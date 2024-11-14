@@ -1,4 +1,4 @@
-local Player = (require "classes.entity"):extend()
+local Player = Groenlein.Classes.Entity:extend()
 
 function Player:new()
     print("Player()")
@@ -11,9 +11,9 @@ function Player:new()
     self.currentFrame = 1
 
     --speed = pixels/second
-    self.speed = TheWorld.Tessellation * 2.5
+    self.speed = Groenlein.TheWorld.Tessellation * 2.5
 
-    self.asset = AssetHandler.GetAll("Run-Sheet")
+    self.asset = Groenlein.AssetHandler.GetAll("Run-Sheet")
 
     print("finished player")
 end
@@ -23,7 +23,7 @@ function Player:draw()
     print("getting player assets")
     local frame = self.asset.quads[tostring(math.floor(self.currentFrame))]
     print("got player assets")
-    local flip = Util.ifelse(self.pos.x > self.pos.last.x, 1, -1)
+    local flip =Groenlein.Util.ifelse(self.pos.x > self.pos.last.x, 1, -1)
     love.graphics.draw(self.asset.img, frame, self.pos.x, self.pos.y, 0, 2*flip, 2, 32, 0)
 
 end
@@ -47,7 +47,7 @@ function Player:update(dt)
     
     
 
-    if counter == TheWorld.Tick and not triggered then
+    if counter == Groenlein.TheWorld.Tick and not triggered then
         Debugger.circ(self.pos.x, self.pos.y)
         counter = counter+1
         triggered = true
@@ -57,11 +57,11 @@ function Player:update(dt)
 
 
     if self.move_up ~= self.move_down then
-        self.pos.y = self.pos.y + Util.ifelse(self.move_up, -1, 1) * self.speed * dt
+        self.pos.y = self.pos.y +Groenlein.Util.ifelse(self.move_up, -1, 1) * self.speed * dt
     end
 
     if self.move_left ~= self.move_right then
-        self.pos.x = self.pos.x + Util.ifelse(self.move_left, -1, 1) * self.speed * dt
+        self.pos.x = self.pos.x +Groenlein.Util.ifelse(self.move_left, -1, 1) * self.speed * dt
     end
 end
 

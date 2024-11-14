@@ -1,5 +1,5 @@
 local MiniLevel = (require "libs.ext.classic"):extend()
-local Image = require "classes.image"
+--local Image = require "classes.image"
 
 --todo@Snepii #11 change the signature, still have to look up that | stuff
 
@@ -27,7 +27,7 @@ function MiniLevel:new(id,width,height, ...)
         args = args[1]
     end
 
-    if args.is and args:is(Image) then
+    if args.is and args:is(Groenlein.Image) then
         self.background = args
         print("img")
     elseif type(args[1] == "number") and type(args[2]) == "number" 

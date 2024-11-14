@@ -1,7 +1,7 @@
 local obj = require "libs.ext.classic"
 local menubutton = obj:extend()
 --local u = require "libs.util"
-local element = require "classes.menuelement"
+local element = Groenlein.Classes.MenuElement
 --TODO: static id list?
 
 function menubutton:new(id, style, main_color, hover_color, text_color, img_path, text, width, height, r)
@@ -11,7 +11,7 @@ function menubutton:new(id, style, main_color, hover_color, text_color, img_path
     self.hovercolor = hover_color
     self.textcolor = text_color
     if img_path ~= nil then
-        self.img = require "classes.image"
+        self.img = Groenlein.Image
         self.img:setImg(img_path)
     end
     self.x = 0
@@ -95,7 +95,7 @@ function menubutton:draw()
         love.graphics.setStencilTest()
 
         PushColor()
-        Util.push("font", love.graphics.getFont())
+       Groenlein.Util.push("font", love.graphics.getFont())
 
             love.graphics.setColor(self.textcolor)
             love.graphics.setFont(self.font)
@@ -105,7 +105,7 @@ function menubutton:draw()
                 love.graphics.printf(self.text, self.x, self.y + self.height/2 - self.font:getHeight()/2, self.width, "center")
             end
         PopColor()
-        love.graphics.setFont(Util.pop("font")[1])
+        love.graphics.setFont(Groenlein.Util.pop("font")[1])
 
     --u.popColor()
 end

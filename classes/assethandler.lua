@@ -1,4 +1,4 @@
-AssetHandler = { }
+local AssetHandler = { }
 
 AssetHandler.Assets = {
     undefined = {
@@ -64,11 +64,11 @@ local function createAssetJson(name, tile_size)
     love.graphics.setCanvas()
     local imgData = canvas:newImageData()
     local fileData = imgData:encode("png"):getString()
-    Util.writeFile(GAMEPATH.TEXTURES .. name .. "_grid.png", fileData, "wb")
+    Groenlein.Util.writeFile(GAMEPATH.TEXTURES .. name .. "_grid.png", fileData, "wb")
 
     ---write the json file
-    local out = JSON.encode({quads=qds,tile_size=tile_size})
-    Util.writeFile(GAMEPATH.TEXTURES .. name .. ".json", out)
+    local out = Groenlein.JSON.encode({quads=qds,tile_size=tile_size})
+    Groenlein.Util.writeFile(GAMEPATH.TEXTURES .. name .. ".json", out)
 end
 
 ---loads asset.json and assigns variants to coordinates
@@ -76,12 +76,12 @@ end
 local function loadAssetJson(asset_name)
 
 
-    local js = Util.readFile(GAMEPATH.TEXTURES .. asset_name .. ".json")
-    local t = JSON.decode(js)
+    local js = Groenlein.Util.readFile(GAMEPATH.TEXTURES .. asset_name .. ".json")
+    local t = Groenlein.JSON.decode(js)
     local asset = {tile_size = t.tile_size}
 
     for i,p in ipairs(t.quads) do
-        if p.var ~= Variants.Default then
+        if p.var ~= Groenlein.TypeSystem.Variants.Default then
             if not asset[p.y] then 
                 asset[p.y] = {}
             end
@@ -104,7 +104,7 @@ AssetHandler.LoadSpriteImage = function(asset_name, none, debug_tile_size)
     local quadMetaData = {}
     
     ---check for asset.json and load or create
-    if Util.file_exists(GAMEPATH.TEXTURES .. asset_name .. ".json") then
+    if Groenlein.Util.file_exists(GAMEPATH.TEXTURES .. asset_name .. ".json") then
         quadMetaData = loadAssetJson(asset_name)
     else
         createAssetJson(asset_name, debug_tile_size)
@@ -116,9 +116,9 @@ AssetHandler.LoadSpriteImage = function(asset_name, none, debug_tile_size)
     local tile_size =quadMetaData.tile_size
     for y=0,img:getHeight()/tile_size-1 do
         --quads[y] = {}
-        local quadY = quadMetaData[y] or Variants.Default
+        local quadY = quadMetaData[y] or Groenlein.TypeSystem.Variants.Default
         for x=0,img:getWidth()/tile_size-1 do
-            local var = quadY[x] or Variants.Default
+            local var = quadY[x] or Groenlein.TypeSystem.Variants.Default
             quads[var] =love.graphics.newQuad(x*tile_size,y*tile_size, tile_size, tile_size, img:getWidth(), img:getHeight())
         end
     end
@@ -191,3 +191,5 @@ AssetHandler.GetQuad = function(asset_name, variant)
     return AssetHandler.Assets.undefined
     --error("fucky",2)
 end
+
+return AssetHandler

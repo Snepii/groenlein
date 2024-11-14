@@ -1,9 +1,9 @@
---local util = require "libs.util"
+--localGroenlein.Util = require "libs.util"
 local Image = (require "libs.ext.classic"):extend()
 
 function Image:new(path)
     self.path = path
-    self.obj = love.graphics.newImage(Util.ifelsenil(path, GAMEPATH.TEXTURES .. "test.png"))
+    self.obj = love.graphics.newImage(Groenlein.Util.ifelsenil(path, GAMEPATH.TEXTURES .. "test.png"))
     self.width = self.obj:getWidth()
     self.height = self.obj:getHeight()
 
@@ -24,7 +24,7 @@ function image:setImg(img_path)
     if img_path == nil then --img_path = "test.png" end
     print("no image path specified")
     else
-        print("changing img from " .. util.ifelsenil(self.path, "nothing") .. " to " .. img_path)
+        print("changing img from " ..Groenlein.Util.ifelsenil(self.path, "nothing") .. " to " .. img_path)
         self.updatePath(self, img_path)
     end
 end
@@ -34,7 +34,7 @@ function image:updatePath(img_path)
     --local ip = GAMEPATH.RES_PATH .. img_path
 
     local ip = img_path
-    if util.file_exists(ip) then
+    ifGroenlein.Util.file_exists(ip) then
         self.path = ip
         self.obj = love.graphics.newImage(ip)
         self.width = self.obj:getWidth()

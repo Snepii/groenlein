@@ -13,16 +13,35 @@ if arg[2] == "debug" then
 end
 
 -- global loads & fields
-require "classes.types"
-require "updateview"
-require "libs.util"
-require "classes.staticvalues"
-require "classes.debugger"
-require "classes.assethandler"
-JSON = require "libs.ext.json"
+Groenlein = {}
+Groenlein.StaticValues = require "classes.staticvalues"
+Groenlein.TypeSystem = require "classes.typesystem"
+Groenlein.Util = require "libs.util"
+Groenlein.UpdateView = require "updateview"
+Groenlein.Debugger = require "classes.debugger"
+Groenlein.JSON = require "libs.ext.json"
+Groenlein.Image = require "classes.image"
 
-TheWorld = (require "classes.world")()
-ThePlayer = (require "classes.player")()
+Groenlein.AssetHandler = require "classes.assethandler"
+
+Groenlein.Classes = {}
+Groenlein.Classes.Menu = require "classes.menu"
+Groenlein.Classes.MenuElement = require "classes.menuelement"
+Groenlein.Classes.MenuButton = require "classes.menubutton"
+Groenlein.Classes.TitleMenu = require "classes.titlemenu"
+
+Groenlein.Classes.Entity = require "classes.entity"
+
+
+Groenlein.Classes.AbstractTile = require "classes.abstracttile"
+Groenlein.Classes.GroundTile = require "classes.groundtile"
+Groenlein.Classes.MiniLevel = require "classes.minilevel"
+
+
+Groenlein.TheWorld = (require "classes.world")()
+Groenlein.ThePlayer = (require "classes.player")()
+
+
 
 
 
@@ -88,32 +107,33 @@ function love.load()
     end
   end
 
-  AddCallback(TheWorld, true, true, false, false)
-  AddCallback(ThePlayer, true, true, true, false)
+  AddCallback(Groenlein.TheWorld, true, true, false, false)
+  AddCallback(Groenlein.ThePlayer, true, true, true, false)
 
 
   --todo@Snepii #7 change
-  TheWorld:populate()
+  Groenlein.TheWorld:populate()
 
   OnTitleScreen = true
 
 
   -- do NOT add TitleMenu to Callback Table
-  TitleMenu = (require "classes.titlemenu")()
+  TitleMenu = Groenlein.Classes.TitleMenu()
   
   print("load sprite in main")
-  AssetHandler.LoadSpriteImage("Run-Sheet", 64)
+  Groenlein.AssetHandler.LoadSpriteImage("Run-Sheet", 64)
   print("after loadsprite in main")
+
 
 
   --local level = (require "classes.minilevel")("test", 200, 200, {0.5,0.2,0.5,1})
   --local level2 = (require "classes.minilevel")("test2", 200, 200, (require "classes.image")(GAMEPATH.TEXTURES .. "undef.png"))
-  local level3 = (require "classes.minilevel")("test3", 200, 200)
+  local level3 = Groenlein.Classes.MiniLevel("test3", 200, 200)
 end
 
 
 function love.update(dt)
-  Debugger.print("tick", TheWorld.Tick)
+  Debugger.print("tick", Groenlein.TheWorld.Tick)
 
   if OnTitleScreen then    
     TitleMenu:update(dt)

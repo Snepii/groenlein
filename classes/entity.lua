@@ -9,13 +9,13 @@ function entity:new(x, y, img_path)
     self.height = 0
 
     --todo@Snepii #9 see if theres a point in picking one over the other here
-    if img_path ~= nil and AssetHandler.Assets[string.gsub(img_path, "/", ".")] ~= nil then
+    if img_path ~= nil and Groenlein.AssetHandler.Assets[string.gsub(img_path, "/", ".")] ~= nil then
         
     else
 
         if img_path then
             print("fetching image " .. img_path)
-            self.img = (require "classes.image")(img_path)
+            self.img = Groenlein.Image(img_path)
             print("done")
             self.width = self.img.width
             self.height = self.img.height
@@ -26,11 +26,11 @@ function entity:new(x, y, img_path)
         x = x,
         y = y,
         last = { x = x, y = y },
-        tile = { x = function() return x / TheWorld.Tesselation end,
-                 y = function() return y / TheWorld.Tesselation end}
+        tile = { x = function() return x / Groenlein.TheWorld.Tesselation end,
+                 y = function() return y / Groenlein.TheWorld.Tesselation end}
     }
 
-    self.variant = Variants.Default
+    self.variant = Groenlein.TypeSystem.Variants.Default
 
     print("finished Entity()")
 end

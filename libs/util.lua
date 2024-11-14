@@ -1,4 +1,4 @@
-Util = {
+local Util = {
    _stack = {},
    _nstack = {}
 }
@@ -176,3 +176,4 @@ function PopColor()
 end
 
 
+return Util

@@ -24,14 +24,14 @@ Debugger.draw = function()
     local counter = 0
     local lastsize = 0
 
-    Util.push("font", love.graphics.getFont())
+   Groenlein.Util.push("font", love.graphics.getFont())
     love.graphics.setNewFont(12)
         for k,text in pairs(Debugger.text) do
             counter = counter + 1
             love.graphics.print("["..counter.."]:" .. text.key .. ":" ..text.text, 20, 20  * counter)--, 0, text.size, text.size)
         end
     --todo@Snepii #6 ideally pop("...") should not have to be followed by [1]    
-    love.graphics.setFont(Util.pop("font")[1])
+    love.graphics.setFont(Groenlein.Util.pop("font")[1])
 
     for _,e in pairs(Debugger.circle) do
         love.graphics.circle("line", e.x, e.y, 3)
