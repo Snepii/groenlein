@@ -1,6 +1,3 @@
-require "classes.world"
-
-
 
 GAMEPATH = {
     RES_PATH = "res/",
