@@ -26,7 +26,7 @@ TypeSystem.Variants = {
         Right = "br"
     },
     Outer = {
-        Bottom = {
+        Top = {
             Left = "otl",
             Middle = "otm",
             Right = "otr"
@@ -36,7 +36,7 @@ TypeSystem.Variants = {
             Right = "omr",
             Middle = "mm"
         },
-        Top = {
+        Bottom = {
             Left = "obl",
             Middle = "obm",
             Right = "obr"
