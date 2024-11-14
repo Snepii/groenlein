@@ -13,6 +13,8 @@ function Player:new()
     --speed = pixels/second
     self.speed = Groenlein.TheWorld.Tessellation * 2.5
 
+    self.scale = 2
+
     self.asset = Groenlein.AssetHandler.GetAll("Run-Sheet")
 
     print("finished player")
@@ -20,25 +22,36 @@ end
 
 function Player:draw()
 
-    print("getting player assets")
+    --print("getting player assets")
     local frame = self.asset.quads[tostring(math.floor(self.currentFrame))]
-    print("got player assets")
+    --print("got player assets")
     local flip =Groenlein.Util.ifelse(self.pos.x > self.pos.last.x, 1, -1)
-    love.graphics.draw(self.asset.img, frame, self.pos.x, self.pos.y, 0, 2*flip, 2, 32, 0)
-
+    
+    
+    love.graphics.draw(self.asset.img, frame, self.pos.x, self.pos.y,
+                        0, self.scale*flip, self.scale, self.width, self.height)
+    --love.graphics.circle("fill", self.pos.x, self.pos.y, 3)
+    Groenlein.Debugger.tickCirc(self.pos.x, self.pos.y)
 end
+
+function Player:travel(level)
+    self:setTile(level.spawnpoint.x, level.spawnpoint.y)
+    --self.pos.last = self.pos
+end
+
 
 local counter = 1
 local triggered = false
 function Player:update(dt)
+    Groenlein.Debugger.print("playertile", self:getTile().x .. " " .. self:getTile().y)
 
-
+    Groenlein.Debugger.print("playerpos", Groenlein.Lume.round(self.pos.x, .1) .. " " .. Groenlein.Lume.round(self.pos.y, .1))
 
     if self.pos.x - self.pos.last.x ~= 0 or self.pos.y - self.pos.last.y ~= 0 then
-        print("!!!")
+        --print("!!!")
         self.currentFrame = self.currentFrame + 10*dt
     else
-        print("???? " .. self.pos.x .. "/" .. self.pos.last.x .. ", " .. self.pos.y.. "/"..self.pos.last.y)
+        --print("???? " .. self.pos.x .. "/" .. self.pos.last.x .. ", " .. self.pos.y.. "/"..self.pos.last.y)
     end 
     if self.currentFrame >= 6 then
         self.currentFrame = 1
@@ -48,7 +61,7 @@ function Player:update(dt)
     
 
     if counter == Groenlein.TheWorld.Tick and not triggered then
-        Debugger.circ(self.pos.x, self.pos.y)
+        --Debugger.circ(self.pos.x, self.pos.y)
         counter = counter+1
         triggered = true
     else 
