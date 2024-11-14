@@ -25,14 +25,23 @@ function entity:new(x, y, img_path)
     self.pos = {
         x = x,
         y = y,
-        last = { x = x, y = y },
-        tile = { x = function() return x / Groenlein.TheWorld.Tesselation end,
-                 y = function() return y / Groenlein.TheWorld.Tesselation end}
+        last = { x = x, y = y }
+        --tile = { x = function() return x / Groenlein.TheWorld.Tesselation end,
+           --      y = function() return y / Groenlein.TheWorld.Tesselation end}
     }
 
     self.variant = Groenlein.TypeSystem.Variants.Default
 
     print("finished Entity()")
+end
+
+function entity:setTile(x,y)
+    self.pos.x = (x + 0.5) * Groenlein.TheWorld.Tessellation
+    self.pos.y = (y + 0.5) * Groenlein.TheWorld.Tessellation
+end
+
+function entity:getTile()
+    return {x=math.floor(self.pos.x/Groenlein.TheWorld.Tessellation), y=math.floor(self.pos.y/Groenlein.TheWorld.Tessellation)}
 end
 
 function entity:update(dt)
@@ -62,9 +71,9 @@ end
 ---@param e any
 function entity:resolveCollision(e)
     local check = self:checkCollision(e)
-    print("checking collision: " .. tostring(check))
+    --print("checking collision: " .. tostring(check))
     if check then
-        print("pushing back")
+        --print("pushing back")
         if self:wasVerticallyAligned(e) then
             if self.pos.x + self.width/2 < e.pos.x + e.width/2  then
                 -- pusback = the right side of the player - the left side of the wall
