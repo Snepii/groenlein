@@ -1,4 +1,4 @@
-Debugger = {}
+local Debugger = {}
 
 ---function to only run test code and stop after;
 ---@param fct function
@@ -19,6 +19,8 @@ end
 
 ---draws everything stored in the debugger to the screen
 Debugger.draw = function()
+    if not Debugger.Enabled then return end
+
     PushColor()
     love.graphics.setColor(Debugger.color)
     local counter = 0
@@ -44,8 +46,19 @@ Debugger.draw = function()
     for _,e in pairs(Debugger.vline) do
         love.graphics.line(e, 0, e, love.graphics.getHeight())
     end
+
+    for _,e in pairs(Debugger.ticks.circs) do
+        love.graphics.circle("line", e.x, e.y, 3)
+    end
     PopColor()
 
+    Debugger.clearTicks()
+end
+
+
+---enter a draw function that only draws when the game loop ticks
+Debugger.tickCirc = function(x,y)
+    table.insert(Debugger.ticks.circs,{x=x,y=y})
 end
 
 ---stores a text in the debugger. will replace another text with same id
@@ -85,7 +98,17 @@ Debugger.cls = function()
     Debugger.text = {}
     Debugger.hline = {}
     Debugger.vline = {}
+    Debugger.clearTicks()
+
+end
+
+Debugger.clearTicks = function()
+    Debugger.ticks = {circs = {}}
 end
 
 --when loaded, clear debugger => sets empty default variables
 Debugger.cls()
+
+
+Debugger.Enabled = false
+return Debugger
