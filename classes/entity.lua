@@ -32,6 +32,8 @@ function entity:new(x, y, img_path)
 
     self.variant = Groenlein.TypeSystem.Variants.Default
 
+    self.collisionStrength = 0
+
     print("finished Entity()")
 end
 
@@ -70,9 +72,13 @@ end
 ---how to handle collision
 ---@param e any
 function entity:resolveCollision(e)
-    local check = self:checkCollision(e)
+    if self.collisionStrength > e.collisionStrength then
+        e:resolveCollision(self)
+        return
+    end
+
     --print("checking collision: " .. tostring(check))
-    if check then
+    if self:checkCollision(e) then
         --print("pushing back")
         if self:wasVerticallyAligned(e) then
             if self.pos.x + self.width/2 < e.pos.x + e.width/2  then
