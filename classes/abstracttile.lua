@@ -2,7 +2,10 @@
 local Tile = Groenlein.Classes.Entity:extend()
 --local u = require "libs.util"
 
-
+---Creates a new Tile
+---@param x integer
+---@param y integer
+---@param img_path Groenlein.Image
 function Tile:new(x, y, img_path)
     Tile.super.new(self, x*Groenlein.TheWorld.Tessellation, y*Groenlein.TheWorld.Tessellation, img_path)
 
