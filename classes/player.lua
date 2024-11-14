@@ -78,7 +78,12 @@ function Player:update(dt)
     end
 end
 
-
+function Player:checkDistance(entity, dist)
+    if Groenlein.Lume.distance(self.pos.x, self.pos.y, entity.pos.x, entity.pos.y, false) <= dist then
+        return true
+    else return false
+    end
+end
 
 function Player:keypressed(key, scan_code, is_repeat)
     if key == "w" then
