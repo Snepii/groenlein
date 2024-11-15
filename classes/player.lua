@@ -2,7 +2,7 @@ local Player = Groenlein.Classes.Entity:extend()
 
 function Player:new()
     print("Player()")
-    Player.super.new(self, 5, 5, GAMEPATH.TEXTURES .. "player.png")
+    Player.super.new(self, "player", 5, 5, GAMEPATH.TEXTURES .. "player.png")
     self.move_up = false
     self.move_down = false
     self.move_left = false
@@ -16,6 +16,8 @@ function Player:new()
     self.scale = 2
 
     self.asset = Groenlein.AssetHandler.GetAll("Run-Sheet")
+
+    self.inventory = Groenlein.Classes.Inventory(10)
 
     print("finished player")
 end
@@ -32,6 +34,20 @@ function Player:draw()
                         0, self.scale*flip, self.scale, self.width, self.height)
     --love.graphics.circle("fill", self.pos.x, self.pos.y, 3)
     Groenlein.Debugger.tickCirc(self.pos.x, self.pos.y)
+
+    Groenlein.Debugger.print("playerinv", self.inventory:toString())
+end
+
+
+--todo@Snepii #14 this needs to respect the entity origin and the players feet pos
+
+---what happens when a player is close enough to an item entity
+---@param itementity Groenlein.Classes.ItemEntity
+function Player:pickUp(itementity)
+    for i=1,itementity.amount do
+        self.inventory:addItem(itementity.item)
+    end
+
 end
 
 function Player:travel(level)

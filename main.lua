@@ -38,6 +38,11 @@ Groenlein.Classes.GroundTile = require "classes.groundtile"
 Groenlein.Classes.MiniLevel = require "classes.minilevel"
 Groenlein.Classes.Box = require "classes.box"
 
+Groenlein.Classes.Inventory = require "classes.inventory"
+Groenlein.Classes.Item = require "classes.item"
+Groenlein.Classes.ItemEntity = require "classes.itementity"
+
+
 
 Groenlein.TheWorld = (require "classes.world")()
 Groenlein.ThePlayer = (require "classes.player")()
@@ -137,11 +142,53 @@ function love.load()
   Groenlein.ThePlayer:travel(level3)
 
   Groenlein.AssetHandler.LoadSpriteImage("chest", 32)
+  --Groenlein.AssetHandler.LoadSpriteImage("pickaxe", 32)
+ -- Groenlein.AssetHandler.LoadSpriteImage("fishbone", 32)
+
 
   local chest = Groenlein.Classes.Box(5,10)
   AddCallback(chest, true, true,true, false)
+
+  local inv = Groenlein.Classes.Inventory(2)
+  inv.stackable = true
+  inv:print()
+
+  local itm = Groenlein.Classes.Item("fishbone")
+
+  local itement = Groenlein.Classes.ItemEntity(itm, 1, 15, 10)
+
+  AddCallback(itement, true, true, false, false)
+
 end
 
+local gc_draw = {}
+local gc_update = {}
+
+function gc()
+  local idx = #gc_update
+  if idx > 0 then
+    for i=#CallbackItems.Update,1,-1 do
+      if gc_update[idx] == i then
+        table.remove(CallbackItems.Update, i)
+        idx = idx-1
+        if idx == 0 then break end
+      end
+    end
+  end
+
+  idx = #gc_draw
+  if idx > 0 then
+    for i=#CallbackItems.Draw,1,-1 do
+      if gc_update[idx] == i then
+        table.remove(CallbackItems.Draw, i)
+        idx = idx-1
+        if idx == 0 then break end
+      end
+    end
+  end
+
+  
+end
 
 function love.update(dt)
   Groenlein.Debugger.print("tick", Groenlein.TheWorld.Tick)
@@ -153,13 +200,20 @@ function love.update(dt)
   end
   --menu:update()
 
-
   for _,item in pairs(CallbackItems.Update) do
     item:update(dt)
+    if item.markedForDeletion then
+      print("item marked for update deletion at pos " .. _)
+      table.insert(gc_update, _)
+    end
   end
 
 
+  gc()
+
+
 end
+
 
 function love.draw()
 
@@ -173,8 +227,21 @@ function love.draw()
   end
 
   for _,item in pairs(CallbackItems.Draw) do
-    item:draw()
+      if item.draw then
+        item:draw()
+        if item.id == "entity fishbone" then
+          print("stop")
+        end
+        if item.markedForDeletion then
+          table.insert(gc_draw, _)
+      print("item marked for draw deletion at pos " .. _)
+
+        end
+      else
+        print(item.name .. " doesnt have a draw function")
+      end
   end
+  gc()
 
   Groenlein.Debugger.draw()
 
