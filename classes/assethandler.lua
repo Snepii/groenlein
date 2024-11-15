@@ -138,14 +138,14 @@ end
 ---returns all quads of an asset
 ---@param asset_name any "can be for example tile.type or character"
 ---@return table "{img, quads = {var1, var2, ...}}"
-AssetHandler.GetAll = function(asset_name)
+AssetHandler.GetAll = function(asset_name, debug_tile_size)
     local obj = AssetHandler.Assets[asset_name]
 
     if obj then
         return obj
     else
         print("asset " .. asset_name .. " doesnt exist, trying to load..")
-        AssetHandler.LoadSpriteImage(asset_name)
+        AssetHandler.LoadSpriteImage(asset_name, debug_tile_size)
     end
     local obj2 = obj or AssetHandler.Assets[asset_name]
     if obj2 then
