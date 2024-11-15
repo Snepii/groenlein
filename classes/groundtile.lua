@@ -7,7 +7,7 @@ local GroundTile = Groenlein.Classes.AbstractTile:extend()
 ---@param type any
 ---@param variant any
 function GroundTile:new(x, y, type, variant)
-    print("GroundTile()")
+    --print("GroundTile()")
     --GroundTile.super.new(self, x, y, GAMEPATH.GROUND_TEXTURES .. type .. ".png")
     GroundTile.super.new(self, x, y, nil)
 

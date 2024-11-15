@@ -2,7 +2,7 @@ local object = require "libs.ext.classic"
 local entity = object:extend()
 
 function entity:new(x, y, img_path)
-    print("Entity()")
+    --print("Entity()")
 
     --todo@Snepii #8 is this a sensible default?
     self.width = 0
@@ -14,9 +14,9 @@ function entity:new(x, y, img_path)
     else
 
         if img_path then
-            print("fetching image " .. img_path)
+            --print("fetching image " .. img_path)
             self.img = Groenlein.Image(img_path)
-            print("done")
+            --print("done")
             self.width = self.img.width
             self.height = self.img.height
         end
@@ -34,7 +34,7 @@ function entity:new(x, y, img_path)
 
     self.collisionStrength = 0
 
-    print("finished Entity()")
+    --print("finished Entity()")
 end
 
 function entity:setTile(x,y)
