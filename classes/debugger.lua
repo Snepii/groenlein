@@ -39,7 +39,11 @@ Debugger.draw = function()
     love.graphics.setFont(Groenlein.Util.pop("font")[1])
 
     for _,e in pairs(Debugger.circle) do
-        love.graphics.circle("line", e.x, e.y, 3)
+        if e.r then
+            love.graphics.circle("line", e.x, e.y, e.r)
+        else
+            love.graphics.circle("line", e.x, e.y, 3)
+        end
     end
 
     for _,e in pairs(Debugger.hline) do
@@ -83,8 +87,12 @@ Debugger.print = function(id, txt)
     table.insert(Debugger.text, {key=id, text=txt})
 end
 
-Debugger.circ = function(x,y)
-    table.insert(Debugger.circle, {x=x,y=y})
+Debugger.pt = function(x,y)
+    Debugger.circ(x,y,3)
+end
+
+Debugger.circ = function(x,y,r)
+    table.insert(Debugger.circle,{x=x,y=y,r=r})
 end
 
 Debugger.hl = function(y)
