@@ -134,7 +134,7 @@ function love.load()
   --local level = (require "classes.minilevel")("test", 200, 200, {0.5,0.2,0.5,1})
   --local level2 = (require "classes.minilevel")("test2", 200, 200, (require "classes.image")(GAMEPATH.TEXTURES .. "undef.png"))
   local level3 = Groenlein.Classes.MiniLevel("test3", 3,3)
-  AddCallback(level3, false, true, false, false)
+  --AddCallback(level3, false, true, false, false)
   AddCallback(Groenlein.ThePlayer, true, true, true, false)
 
   level3:setSpawn(3,0)
@@ -154,38 +154,44 @@ function love.load()
   inv:print()
 
   local itm = Groenlein.Classes.Item("fishbone")
+  local itm2 = Groenlein.Classes.Item("pickaxe")
+  itm2.stacksize = 1
 
-  local itement = Groenlein.Classes.ItemEntity(itm, 1, 15, 10)
+  local itement = Groenlein.Classes.ItemEntity(itm, 1, 3, 1)
+  local itement2 = Groenlein.Classes.ItemEntity(itm2, 1, 3, 2)
+  local itement3 = Groenlein.Classes.ItemEntity(itm, 1, 3,3)
+  local itement4 = Groenlein.Classes.ItemEntity(itm2, 1, 3, 4)
+  local itement5 = Groenlein.Classes.ItemEntity(itm, 1, 3, 5)
 
-  AddCallback(itement, true, true, false, false)
 
+
+ -- AddCallback(itement, true, true, false, false)
+  --AddCallback(itement2, true, true, false, false)
+
+--todo@Snepii remove the other callback tables and centralize
+  Elements = {itement, itement2, itement4, itement3}
 end
 
-local gc_draw = {}
-local gc_update = {}
+local gc_marks = {}
 
 function gc()
-  local idx = #gc_update
-  if idx > 0 then
-    for i=#CallbackItems.Update,1,-1 do
-      if gc_update[idx] == i then
-        table.remove(CallbackItems.Update, i)
-        idx = idx-1
-        if idx == 0 then break end
-      end
-    end
-  end
+  if #gc_marks == 0 then return end
 
-  idx = #gc_draw
+  table.sort(gc_marks, function(a,b) return a<b end)
+
+  local idx = #gc_marks
   if idx > 0 then
-    for i=#CallbackItems.Draw,1,-1 do
-      if gc_update[idx] == i then
-        table.remove(CallbackItems.Draw, i)
+    for i=#Elements,1,-1 do
+      if gc_marks[idx] == i then
+        print("deleting " .. Elements[i].id)
+        table.remove(Elements, i)
         idx = idx-1
         if idx == 0 then break end
       end
     end
   end
+  
+  gc_marks = {}
 
   
 end
@@ -200,12 +206,19 @@ function love.update(dt)
   end
   --menu:update()
 
+  for _,e in ipairs(Elements) do
+    if e.markedForUpdate then
+      e:update(dt)
+      if e.markedForDeletion then
+        table.insert(gc_marks, _)
+
+      end
+    end
+    
+  end
+
   for _,item in pairs(CallbackItems.Update) do
     item:update(dt)
-    if item.markedForDeletion then
-      print("item marked for update deletion at pos " .. _)
-      table.insert(gc_update, _)
-    end
   end
 
 
@@ -226,16 +239,22 @@ function love.draw()
     return
   end
 
+  for _,e in ipairs(Elements) do
+    if e.markedForDraw then
+      e:draw()
+      if e.markedForDeletion then
+        table.insert(gc_marks, _)
+      end
+    end
+    
+  end
+
+
   for _,item in pairs(CallbackItems.Draw) do
       if item.draw then
         item:draw()
         if item.id == "entity fishbone" then
           print("stop")
-        end
-        if item.markedForDeletion then
-          table.insert(gc_draw, _)
-      print("item marked for draw deletion at pos " .. _)
-
         end
       else
         print(item.name .. " doesnt have a draw function")

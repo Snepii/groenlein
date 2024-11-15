@@ -5,7 +5,7 @@ function entity:new(id, x, y, img_path)
     --print("Entity()")
 
     self.id = id
-    
+
     --todo@Snepii #8 is this a sensible default?
     self.width = 0
     self.height = 0
@@ -37,6 +37,8 @@ function entity:new(id, x, y, img_path)
     self.collisionStrength = 0
 
     self.markedForDeletion = false
+    self.markedForUpdate = true
+    self.markedForDraw = true
 
     --print("finished Entity()")
 end
