@@ -9,7 +9,7 @@ local GroundTile = Groenlein.Classes.AbstractTile:extend()
 function GroundTile:new(x, y, type, variant)
     --print("GroundTile()")
     --GroundTile.super.new(self, x, y, GAMEPATH.GROUND_TEXTURES .. type .. ".png")
-    GroundTile.super.new(self, x, y, nil)
+    GroundTile.super.new(self, "groundtile", x, y, nil)
 
     self.collisionStrength = 100
     self.width = 32

@@ -6,8 +6,8 @@ local Tile = Groenlein.Classes.Entity:extend()
 ---@param x integer
 ---@param y integer
 ---@param img_path Groenlein.Image
-function Tile:new(x, y, img_path)
-    Tile.super.new(self, x*Groenlein.TheWorld.Tessellation, y*Groenlein.TheWorld.Tessellation, img_path)
+function Tile:new(id, x, y, img_path)
+    Tile.super.new(self, id, x*Groenlein.TheWorld.Tessellation, y*Groenlein.TheWorld.Tessellation, img_path)
 
     --whether the tile's draw function should be called
     self.drawable = false

@@ -1,9 +1,11 @@
 local object = require "libs.ext.classic"
 local entity = object:extend()
 
-function entity:new(x, y, img_path)
+function entity:new(id, x, y, img_path)
     --print("Entity()")
 
+    self.id = id
+    
     --todo@Snepii #8 is this a sensible default?
     self.width = 0
     self.height = 0
@@ -33,6 +35,8 @@ function entity:new(x, y, img_path)
     self.variant = Groenlein.TypeSystem.Variants.Default
 
     self.collisionStrength = 0
+
+    self.markedForDeletion = false
 
     --print("finished Entity()")
 end

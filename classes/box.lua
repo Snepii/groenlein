@@ -1,7 +1,7 @@
 local Box = Groenlein.Classes.Entity:extend()
 
 function Box:new(x, y, capacity)
-    Box.super.new(self, x, y, nil)
+    Box.super.new(self, "box", x, y, nil)
 
     self.asset = Groenlein.AssetHandler.GetAll("chest")
     self.opened = false

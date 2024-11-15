@@ -15,7 +15,7 @@ end
 ---@param item Groenlein.classes.Item
 ---@return boolean "whether the item was added"
 function Inventory:addItem(item)
-    print("trying to add " .. item.name .. " to: ")
+    print("trying to add " .. item.id .. " to: ")
     self:print()
     if item == nil then
         print("item is nil")
@@ -74,7 +74,7 @@ function Inventory:addItemPos(item, pos)
                 return false
             end
         else
-            print("cannot stack " .. item.name .. " onto " .. self.storage[pos].item.name)
+            print("cannot stack " .. item.id .. " onto " .. self.storage[pos].item.id)
             return false
         end
     else
@@ -85,19 +85,25 @@ function Inventory:addItemPos(item, pos)
 
 end
 
-function Inventory:print()
+function Inventory:toString()
     local s = ""
 
     for i=1,self.capacity do
         s = s .. "\n[" .. i .. "]: "
 
         if self.storage[i] then
-             s = s .. self.storage[i].item.name .. " (" .. self.storage[i].amount .. "/"..self.storage[i].item.stacksize .. ")"
+             s = s .. self.storage[i].item.id .. " (" .. self.storage[i].amount .. "/"..self.storage[i].item.stacksize .. ")"
         else
             s = s .. "--"
         end
     end
-    print(s)
+
+    return s
+end
+
+function Inventory:print()
+
+    print(self:toString())
 end
 
 function Inventory:takeItemPos(pos)
